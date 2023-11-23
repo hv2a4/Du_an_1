@@ -74,4 +74,18 @@ public class HoaDonChiTietDAO extends DAO<HoaDonChiTietObject, Integer> {
         return list;
     }
 
+    final String selectLatestTotal = "SELECT TOP 1 TongTien FROM HoaDonChiTiet ORDER BY MaHDCT DESC";
+
+    public double getLatestTotal() {
+        try {
+            ResultSet rs = JdbcHelper.query(selectLatestTotal);
+            if (rs.next()) {
+                return rs.getDouble("TongTien");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return 0; // hoặc giá trị mặc định khác tùy vào logic của bạn
+    }
+    
 }

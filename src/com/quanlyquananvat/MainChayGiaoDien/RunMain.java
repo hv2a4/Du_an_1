@@ -7,6 +7,7 @@ import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
 import com.quanlyquananvat.GiaoDienQuanLy.DangNhap;
 import com.quanlyquananvat.GiaoDienQuanLy.DoiMatKhau;
+import com.quanlyquananvat.GiaoDienQuanLy.GiaoDich;
 import com.quanlyquananvat.ThuVienTienIch.Auth;
 import com.quanlyquananvat.ThuVienTienIch.MsgBox;
 import com.quanlyquananvat.ThuVienTienIch.Ximge;
@@ -94,6 +95,11 @@ public class RunMain extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(242, 242, 242));
 
@@ -569,6 +575,11 @@ public class RunMain extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+      
+       
+    }//GEN-LAST:event_formWindowOpened
     public void doiMatKhau() {
         if (Auth.isLogin()) {
             this.dispose();

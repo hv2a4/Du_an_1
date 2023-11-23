@@ -35,6 +35,8 @@ MaKH varchar(10) null,
 MaNV varchar(10) null,
 NgayTao date default getdate(),
 PhiGiaoNhanh float null,
+TongTien float null,
+diaChi nvarchar(100) null,
 MaThanhToan varchar(10) null
 )
 go
@@ -163,18 +165,18 @@ VALUES
 ('TT002', N'Chuyển khoản');
 
 -- Thêm dữ liệu cho bảng HoaDon
-INSERT INTO HoaDon (MaKH, MaNV, PhiGiaoNhanh, MaThanhToan)
+INSERT INTO HoaDon (MaKH, MaNV, PhiGiaoNhanh,TongTien,DiaChi, MaThanhToan)
 VALUES
-('KH001', 'NV001', 10.5, 'TT001'),
-('KH002', 'NV002', 15.2, 'TT002'),
-('KH003', 'NV003', 8.0, 'TT001'),
-('KH004', 'NV004', 12.3, 'TT002'),
-('KH005', 'NV005', 5.5, 'TT001'),
-('KH006', 'NV006', 20.0, 'TT002'),
-('KH007', 'NV007', 18.7, 'TT001'),
-('KH008', 'NV008', 14.9, 'TT002'),
-('KH009', 'NV009', 9.2, 'TT001'),
-('KH010', 'NV010', 11.0, 'TT002');
+('KH001', 'NV001', 10.5,30, N'Cần thơ','TT001'),
+('KH002', 'NV002', 15.2,40, N'Thành phố Hồ Chí Minh','TT002'),
+('KH003', 'NV003', 8.0,43.4,N'Hà nội','TT001'),
+('KH004', 'NV004', 12.3,53,N'Kiên giang' ,'TT002'),
+('KH005', 'NV005', 5.5, 23,N'Vĩnh Long','TT001'),
+('KH006', 'NV006', 20.0, 53,N'Sóc Trăng','TT002'),
+('KH007', 'NV007', 18.7, 63,N'Thanh Hóa','TT001'),
+('KH008', 'NV008', 14.9,73,N'Trà Vinh', 'TT002'),
+('KH009', 'NV009', 9.2, 33,N'Hải phòng','TT001'),
+('KH010', 'NV010', 11.0,53,N'Đắc nông', 'TT002');
 
 -- Thêm dữ liệu cho bảng HoaDonChiTiet
 INSERT INTO HoaDonChiTiet (MaHoaDon, MaSP, TenSanPham, SoLuong, Gia, TongTien)

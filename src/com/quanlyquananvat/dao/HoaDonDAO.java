@@ -9,27 +9,25 @@ import java.sql.*;
 
 public class HoaDonDAO extends DAO<HoaDonObject, Integer> {
 
-    final String Insert_sql = "INSERT INTO hoadon( MaKH, MaNV, NgayTao, PhiGiaoNhanh, MaThanhToan) VALUES ( (select MaKH from KhachHang where TenKH like ? ), ?, ?, ?, ?)";
-    final String Udate_sql = "UPDATE hoadon SET MaKH=?, MaNV=?, NgayTao=?, PhiGiaoNhanh=?, MaThanhToan=? WHERE MaHD=?";
+    final String Insert_sql = "INSERT INTO hoadon( MaKH, MaNV, NgayTao, PhiGiaoNhanh,TongTien,DiaChi, MaThanhToan) VALUES ( (select MaKH from KhachHang where TenKH like ? ), ?,?, ?,?, ?, ?)";
+    final String Udate_sql = "update HoaDon set MaKH = ? ,MaNV = ?,NgayTao = ?,PhiGiaoNhanh = ?,TongTien = ?,diaChi = ?,MaThanhToan = ? where MaHD = ?";
     final String Delete_sql = "DELETE FROM hoadon WHERE MaHD=?";
     final String Select_all_sql = "SELECT * FROM hoadon";
     final String Select_ById_sql = "SELECT * FROM hoadon WHERE MaHD=?";
     final String Create_ID = "insert into HoaDon(MaKH,MaNV,NgayTao,PhiGiaoNhanh,MaThanhToan) values(?,?,?,?,?);";
     final String MaHDMoi = "select max(MaHD) as MaHD from HoaDon";
-   
-
-    
-
+    final String SELECT_MAKH = "select top 1 MaKH from KhachHang where TenKH like ?";
+    final String ten_MaKH = "select TenKH from KhachHang where MaKH = ?";
     @Override
     public void insert(HoaDonObject entiTy) {
         JdbcHelper.update(Insert_sql, entiTy.getMaKH(), entiTy.getMaNV(), entiTy.getNgayTao(),
-                entiTy.getPhiGiaoNhanh(), entiTy.getMaThanhToan());
+                entiTy.getPhiGiaoNhanh(), entiTy.getTongTien(), entiTy.getDiaChi(), entiTy.getMaThanhToan());
     }
 
     @Override
     public void update(HoaDonObject entiTy) {
-        JdbcHelper.update(Udate_sql, entiTy.getMaKH(), entiTy.getNgayTao(),
-                entiTy.getPhiGiaoNhanh(), entiTy.getMaThanhToan(), entiTy.getMaHD());
+        JdbcHelper.update(Udate_sql, entiTy.getMaKH(), entiTy.getMaNV(), entiTy.getNgayTao(), entiTy.getPhiGiaoNhanh(),
+                entiTy.getTongTien(), entiTy.getDiaChi(), entiTy.getMaThanhToan(), entiTy.getMaHD());
     }
 
     @Override
@@ -63,6 +61,8 @@ public class HoaDonDAO extends DAO<HoaDonObject, Integer> {
                 hd.setMaNV(rs.getString("MaNV"));
                 hd.setNgayTao(rs.getDate("NgayTao"));
                 hd.setPhiGiaoNhanh(rs.getDouble("PhiGiaoNhanh"));
+                hd.setTongTien(rs.getDouble("TongTien"));
+                hd.setDiaChi(rs.getString("DiaChi"));
                 hd.setMaThanhToan(rs.getString("MaThanhToan"));
                 list.add(hd);
             }
@@ -90,5 +90,29 @@ public class HoaDonDAO extends DAO<HoaDonObject, Integer> {
             throw new RuntimeException(e);
         }
         return list;
+    }
+
+    public String layMaKhachHang(String tenKhachHang) {
+        try {
+            ResultSet rs = JdbcHelper.query(SELECT_MAKH, "%" + tenKhachHang + "%");
+            if (rs.next()) {
+                return rs.getString("MaKH");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return ""; // hoặc giá trị mặc định khác tùy vào logic của bạn
+    }
+
+    public String layTenKhachHang(String tenKH) {
+        try {
+            ResultSet rs = JdbcHelper.query(ten_MaKH, tenKH);
+            if (rs.next()) {
+                return rs.getString("TenKH");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return "";
     }
 }

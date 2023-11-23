@@ -2,6 +2,7 @@ package com.quanlyquananvat.GiaoDienQuanLy;
 
 import com.quanlyquananvat.Object.GiaoDichObject;
 import com.quanlyquananvat.Object.KhachHangObject;
+import com.quanlyquananvat.ThuVienTienIch.MsgBox;
 import com.quanlyquananvat.dao.KhachHangDAO;
 import java.awt.Color;
 import java.awt.Container;
@@ -41,10 +42,12 @@ public class DanhSachKhachHang extends javax.swing.JDialog {
                     kho.getTenKH(),
                     kho.isGioiTinh() ? "Nam" : "Nữ",
                     kho.getSoDienThoai(),
-                    kho.getDiaChi(),
-                    kho.getEmail(),});
+                    kho.getEmail(),
+                    kho.getNgaySinh(),});
             }
         } catch (Exception e) {
+            e.printStackTrace();
+            MsgBox.warning(this, "Lỗi truy vấn dữ liệu");
         }
     }
 
@@ -159,8 +162,6 @@ public class DanhSachKhachHang extends javax.swing.JDialog {
 
     private void tblKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhachHangMouseClicked
         row = tblKhachHang.getSelectedRow();
-        System.out.println(row);
-
     }//GEN-LAST:event_tblKhachHangMouseClicked
 
     public static void main(String args[]) {
