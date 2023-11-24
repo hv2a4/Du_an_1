@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.quanlyquananvat.ThuVienTienIch;
 
 import java.text.DecimalFormat;
@@ -33,18 +29,9 @@ public class NumberFormatter {
         return decimalFormat.parse(text).doubleValue();
     }
 
-    public static void main(String[] args) {
-        double number = 1234567.89;
-
-        String formatted = format(number);
-        System.out.println("Formatted: " + formatted);
-
-        try {
-            double parsed = parse(formatted);
-            System.out.println("Parsed: " + parsed);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+    public static double parseFormattedNumber(String formattedNumber) throws ParseException {
+        DecimalFormat df = new DecimalFormat("###,###.000");
+        return df.parse(formattedNumber).doubleValue();
     }
 
     public static String formatCurrency(double hocPhi) {
@@ -53,7 +40,7 @@ public class NumberFormatter {
     }
 
     public static String formatNumber(double number) {
-        DecimalFormat df = new DecimalFormat("0.##");
+        DecimalFormat df = new DecimalFormat("###,##0.000");
         return df.format(number);
     }
 

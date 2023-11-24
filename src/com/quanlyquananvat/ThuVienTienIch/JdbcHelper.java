@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.quanlyquananvat.ThuVienTienIch;
 
 import java.sql.Connection;
@@ -10,10 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- *
- * @author pc
- */
 public class JdbcHelper {
 
     static String url = "jdbc:sqlserver://localhost:1433;databasename=Du_an_1;user=sa;password=123456;encrypt=false;";

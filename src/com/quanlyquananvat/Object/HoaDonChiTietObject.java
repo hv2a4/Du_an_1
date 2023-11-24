@@ -81,4 +81,9 @@ public class HoaDonChiTietObject {
         this.tongTien = tongTien;
     }
 
+    @Override
+    public String toString() {
+        return this.tongTien+"";
+    }
+
 }

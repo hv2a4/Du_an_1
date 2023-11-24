@@ -9,18 +9,22 @@ public class HoaDonObject {
     private String MaNV;
     private Date ngayTao;
     private double phiGiaoNhanh;
+    private double tongTien;
+    private String diaChi;
     private String maThanhToan;
 
-    public HoaDonObject(int MaHD, String MaKH, String MaNV, Date ngayTao, double phiGiaoNhanh, String maThanhToan) {
+    public HoaDonObject() {
+    }
+
+    public HoaDonObject(int MaHD, String MaKH, String MaNV, Date ngayTao, double phiGiaoNhanh, double tongTien, String diaChi, String maThanhToan) {
         this.MaHD = MaHD;
         this.MaKH = MaKH;
         this.MaNV = MaNV;
         this.ngayTao = ngayTao;
         this.phiGiaoNhanh = phiGiaoNhanh;
+        this.tongTien = tongTien;
+        this.diaChi = diaChi;
         this.maThanhToan = maThanhToan;
-    }
-
-    public HoaDonObject() {
     }
 
     public int getMaHD() {
@@ -63,6 +67,22 @@ public class HoaDonObject {
         this.phiGiaoNhanh = phiGiaoNhanh;
     }
 
+    public double getTongTien() {
+        return tongTien;
+    }
+
+    public void setTongTien(double tongTien) {
+        this.tongTien = tongTien;
+    }
+
+    public String getDiaChi() {
+        return diaChi;
+    }
+
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
+    }
+
     public String getMaThanhToan() {
         return maThanhToan;
     }
@@ -73,7 +93,7 @@ public class HoaDonObject {
 
     @Override
     public String toString() {
-        return this.MaHD+"";
+        return this.MaHD + "";
     }
 
 }
