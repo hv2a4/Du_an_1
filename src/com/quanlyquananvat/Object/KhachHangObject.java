@@ -1,6 +1,7 @@
 package com.quanlyquananvat.Object;
 
 import java.util.Date;
+import textfield.TextField;
 
 public class KhachHangObject {
 
@@ -84,6 +85,14 @@ public class KhachHangObject {
     @Override
     public String toString() {
         return this.TenKH;
+    }
+
+    public void setNgaySinh(TextField txtNgaySinh) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public Object getGioiTinh() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

@@ -9,21 +9,21 @@ import java.sql.*;
 
 public class SanPhamDAO extends DAO<SanPhamObject, String> {
 
-    final String Insert_sql = "INSERT INTO sanpham(MaSP, TenSP, SoLuong,GiaSP, NgayNhap, MoTa, HinhAnh, MaLoaiSanPham) VALUES (?, ?,?, ?, ?, ?, ?, ?)";
-    final String Udate_sql = "UPDATE sanpham SET TenSP=?,SoLuong = ?, GiaSP=?, NgayNhap=?, MoTa=?, HinhAnh=?, MaLoaiSanPham=? WHERE MaSP=?";
+    final String Insert_sql = "INSERT INTO sanpham(MaSP, TenSP, GiaSP, NgayNhap, MoTa, HinhAnh, MaLoaiSanPham) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    final String Udate_sql = "UPDATE sanpham SET TenSP=?, GiaSP=?, NgayNhap=?, MoTa=?, HinhAnh=?, MaLoaiSanPham=? WHERE MaSP=?";
     final String Delete_sql = "DELETE FROM sanpham WHERE MaSP=?";
     final String Select_all_sql = "SELECT * FROM sanpham";
     final String Select_ById_sql = "SELECT * FROM sanpham WHERE MaSP=?";
 
     @Override
     public void insert(SanPhamObject entiTy) {
-        JdbcHelper.update(Insert_sql, entiTy.getMaSP(), entiTy.getTenSP(), entiTy.getSoLuong(), entiTy.getGiaSP(),
+        JdbcHelper.update(Insert_sql, entiTy.getMaSP(), entiTy.getTenSP(), entiTy.getGiaSP(),
                 entiTy.getNgayNhap(), entiTy.getMoTa(), entiTy.getHinhAnh(), entiTy.getMaLoaiSanPham());
     }
 
     @Override
     public void update(SanPhamObject entiTy) {
-        JdbcHelper.update(Udate_sql, entiTy.getTenSP(), entiTy.getSoLuong(), entiTy.getGiaSP(),
+        JdbcHelper.update(Udate_sql, entiTy.getTenSP(), entiTy.getGiaSP(),
                 entiTy.getNgayNhap(), entiTy.getMoTa(), entiTy.getHinhAnh(), entiTy.getMaLoaiSanPham(), entiTy.getMaSP());
     }
 

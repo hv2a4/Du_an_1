@@ -198,10 +198,7 @@ public class NhanVien extends javax.swing.JPanel {
         lblSoTrang = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(242, 242, 242));
-
         TabNhanVien.setBackground(new java.awt.Color(242, 242, 242));
-        TabNhanVien.setForeground(new java.awt.Color(0, 0, 0));
         TabNhanVien.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         TabNhanVien.setSelectedColor(new java.awt.Color(204, 204, 204));
         TabNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -209,9 +206,6 @@ public class NhanVien extends javax.swing.JPanel {
                 TabNhanVienMouseClicked(evt);
             }
         });
-
-        jPanel1.setBackground(new java.awt.Color(242, 242, 242));
-        jPanel1.setForeground(new java.awt.Color(0, 0, 0));
 
         border_panel1.setBackground(new java.awt.Color(217, 217, 217));
         border_panel1.setRoundBottomLeft(25);
@@ -250,37 +244,30 @@ public class NhanVien extends javax.swing.JPanel {
         );
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Mã nhân viên");
 
         txtMaNhanVien.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Tên nhân viên");
 
         txtTenNhanVien.setForeground(new java.awt.Color(0, 0, 0));
         txtTenNhanVien.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Mật khẩu");
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Xác nhận mật khẩu");
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Vai trò");
 
         buttonGroup1.add(rdoQuanLy);
-        rdoQuanLy.setForeground(new java.awt.Color(0, 0, 0));
         rdoQuanLy.setText("Quản lý");
         rdoQuanLy.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
 
         buttonGroup1.add(rdoNhanVien);
-        rdoNhanVien.setForeground(new java.awt.Color(0, 0, 0));
         rdoNhanVien.setText("Nhân viên");
         rdoNhanVien.setFocusable(false);
         rdoNhanVien.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
@@ -335,7 +322,6 @@ public class NhanVien extends javax.swing.JPanel {
         });
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Số Điện thoại");
 
         txtSoDienThoai.setForeground(new java.awt.Color(0, 0, 0));
@@ -434,22 +420,23 @@ public class NhanVien extends javax.swing.JPanel {
 
         TabNhanVien.addTab("Cập nhật", jPanel1);
 
-        jPanel2.setBackground(new java.awt.Color(242, 242, 242));
-
         jLabel8.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Tìm kiếm");
 
         txtTimKiem.setBackground(new java.awt.Color(220, 220, 220));
         txtTimKiem.setForeground(new java.awt.Color(0, 0, 0));
         txtTimKiem.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTimKiemActionPerformed(evt);
+            }
+        });
         txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtTimKiemKeyReleased(evt);
             }
         });
 
-        tblNhanVien.setForeground(new java.awt.Color(0, 0, 0));
         tblNhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -527,7 +514,6 @@ public class NhanVien extends javax.swing.JPanel {
         });
 
         lblSoTrang.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lblSoTrang.setForeground(new java.awt.Color(0, 0, 0));
         lblSoTrang.setText("Trang:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -674,6 +660,10 @@ public class NhanVien extends javax.swing.JPanel {
     private void TabNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabNhanVienMouseClicked
      
     }//GEN-LAST:event_TabNhanVienMouseClicked
+
+    private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimKiemActionPerformed
     public void clearnForm() {
         this.setForm(new NhanVienObject());
         buttonGroup1.clearSelection();

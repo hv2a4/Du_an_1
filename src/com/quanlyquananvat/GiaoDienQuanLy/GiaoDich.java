@@ -37,7 +37,7 @@ public class GiaoDich extends javax.swing.JPanel {
     HoaDonDAO hddao = new HoaDonDAO();
     KhachHangDAO khdao = new KhachHangDAO();
 
-    int row = 0;
+    int row = -1;
 
     public GiaoDich() {
         initComponents();
@@ -71,7 +71,9 @@ public class GiaoDich extends javax.swing.JPanel {
     }
 
     public void init() {
+        
         fillComboboxLoaiSanPham();
+
     }
 
     public void fillTableHoaDonChiTiet(int maHD) {
@@ -799,6 +801,7 @@ public class GiaoDich extends javax.swing.JPanel {
 
     }//GEN-LAST:event_txtKhachHangMouseClicked
 
+
     private void txtKhachHangMa(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtKhachHangMa
         // TODO add your handling code here:
     }//GEN-LAST:event_txtKhachHangMa
@@ -813,73 +816,35 @@ public class GiaoDich extends javax.swing.JPanel {
 
     private void tblSanPhamMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMousePressed
         if (evt.getClickCount() == 2) {
-            this.row = tblSanPham.rowAtPoint(evt.getPoint());
-            edit();
+           this.row = tblSanPham.rowAtPoint(evt.getPoint());
+           edit();
         }
     }//GEN-LAST:event_tblSanPhamMousePressed
 
     private void edit() {
-        try {
-            // Nhập số lượng từ người dùng
-            String soLuongStr = JOptionPane.showInputDialog(this, "Nhập số lượng!");
-
-            // Kiểm tra nếu người dùng bấm Cancel hoặc nhập rỗng
-            if (soLuongStr == null || soLuongStr.trim().isEmpty()) {
-                MsgBox.alert(this, "Vui lòng nhập số lượng");
-                return;
-            }
-
-            // Kiểm tra nếu người dùng nhập không phải là số
-            int soLuong;
-            try {
-                soLuong = Integer.parseInt(soLuongStr);
-            } catch (NumberFormatException ex) {
-                MsgBox.alert(this, "Số lượng phải là một số nguyên");
-                return;
-            }
-
-            // Kiểm tra nếu số lượng là số âm
-            if (soLuong <= 0) {
-                MsgBox.alert(this, "Số lượng phải là một số nguyên dương");
-                return;
-            }
-
-            // Tiếp tục xử lý nếu không có lỗi
-            String maSP = (String) tblSanPham.getValueAt(row, 0);
-            String tenSP = (String) tblSanPham.getValueAt(row, 1);
-            double giaSP = (double) tblSanPham.getValueAt(row, 3);
-            double tongTien = soLuong * giaSP;
-            int soLuongSP = (int) tblSanPham.getValueAt(row, 2);
-
-            // Kiểm tra số lượng còn đủ để bán không
-            if (soLuong > soLuongSP) {
-                MsgBox.alert(this, "Số lượng không đủ để bán");
-                return;
-            }
-
-            // Cập nhật số lượng sản phẩm trong CSDL
-            SanPhamObject sp = spdao.selectById(maSP);
-            sp.setSoLuong(soLuongSP - soLuong);
-            spdao.update(sp);
-
-            // Thêm thông tin vào bảng HoaDonChiTiet
-            if (sp != null) {
-                HoaDonChiTietObject hdct = new HoaDonChiTietObject();
-                hdct.setMaHoaDon(Integer.parseInt(txtMaHoaDon.getText()));
-                hdct.setMaSanPham(maSP);
-                hdct.setGia(giaSP);
-                hdct.setTenSP(tenSP);
-                hdct.setSoLuong(soLuong);
-                hdct.setTongTien(tongTien);
-                hdctdao.insert(hdct);
-                tabbedPaneCustom1.setSelectedIndex(0);
-                this.fillTableHoaDonChiTiet(Integer.parseInt(txtMaHoaDon.getText()));
-                this.fillTableSanPham();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            MsgBox.warning(this, "Đã xảy ra lỗi khi thực hiện thao tác");
+        int soLuong = Integer.parseInt(JOptionPane.showInputDialog(this, "Nhập số lượng !"));
+        String maSP = (String) tblSanPham.getValueAt(this.row, 0);
+        String tenSP = (String)tblSanPham.getValueAt(row, 1);
+        double giaSP = (double)tblSanPham.getValueAt(row, 3);
+        double tongTien = (soLuong * giaSP);
+        int soLuongSP = (int) tblSanPham.getValueAt(row, 2);
+        SanPhamObject sp = spdao.selectById(maSP);
+        sp.setSoLuong(soLuongSP - soLuong);
+        spdao.update(sp);
+        if (sp != null) {
+            HoaDonChiTietObject hdct = new HoaDonChiTietObject();
+            hdct.setMaHoaDon(Integer.parseInt(txtMaHoaDon.getText()));
+            hdct.setMaSanPham(maSP);
+            hdct.setGia(giaSP);
+            hdct.setTenSP(tenSP);
+            hdct.setSoLuong(soLuong);
+            hdct.setTongTien(tongTien);
+            hdctdao.insert(hdct);
+            tabbedPaneCustom1.setSelectedIndex(0);
+            this.fillTableHoaDonChiTiet(Integer.parseInt(txtMaHoaDon.getText()));
+            this.fillTableSanPham();
         }
+        
     }
 
     public void addSanPham() {

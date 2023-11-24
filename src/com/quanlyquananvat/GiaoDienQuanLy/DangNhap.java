@@ -29,7 +29,7 @@ public class DangNhap extends javax.swing.JDialog {
         btnDangNhap.setContentAreaFilled(false);
         setLocationRelativeTo(null);
         txtTaiKhoan.setText("NV001");
-        txtMatKhau.setText("password123");
+        txtMatKhau.setText("123");
         
     }
     

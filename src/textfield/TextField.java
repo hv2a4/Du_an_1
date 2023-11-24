@@ -8,6 +8,7 @@ import java.awt.RenderingHints;
 import java.awt.geom.Area;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
+import java.util.Date;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicTextFieldUI;
@@ -101,6 +102,10 @@ public class TextField extends JTextField {
         } else {
             return null;
         }
+    }
+
+    public void Date(Date ngaySinh) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     private class TextUI extends BasicTextFieldUI {

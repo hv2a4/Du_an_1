@@ -75,5 +75,23 @@ public class KhachHangDAO extends DAO<KhachHangObject, String> {
         }
         return list;
     }
+  public List<KhachHangObject> searchNhanVien(String searchType, String keyword) {
+    switch (searchType) {
+        case "MaKH":
+            return selectBySQL("SELECT * FROM nhanvien WHERE MaNV LIKE ?", "%" + keyword + "%");
+        case "TenKH":
+            return selectBySQL("SELECT * FROM nhanvien WHERE TenNV LIKE ?", "%" + keyword + "%");
+        case "SoDienThoai":
+            return selectBySQL("SELECT * FROM nhanvien WHERE SoDienThoai LIKE ?", "%" + keyword + "%");
+        case "GioiTinh":
+            return selectBySQL("SELECT * FROM nhanvien WHERE VaiTro LIKE ?", "%" + keyword + "%");
+        // Thêm các trường hợp tìm kiếm khác nếu cần
+        default:
+            throw new IllegalArgumentException("Loại tìm kiếm không hợp lệ: " + searchType);
+    }
+}
+
+
+    
 
 }
