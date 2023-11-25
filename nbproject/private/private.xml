@@ -3,23 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/Object/GiaoDichObject.java</file>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/DanhSachKhachHang.java</file>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/Object/InHoaDon.java</file>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/dao/HoaDonChiTietDAO.java</file>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/Object/HoaDonChiTietObject.java</file>
+            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/QuanLyThongKeControler.java</file>
+            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/dao/ThongKeDao.java</file>
+            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/Object/LoaiSanPhamObject.java</file>
+            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/GiaoDich.java</file>
+            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/ThongKe.java</file>
             <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/NhanVien.java</file>
             <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/ChiTietHoaDon.java</file>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/ThuVienTienIch/JdbcHelper.java</file>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/dao/LoaiSanPhamDAO.java</file>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/Object/HoaDonObject.java</file>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/MainChayGiaoDien/RunMain.java</file>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/GiaoDich.java</file>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/dao/SanPhamDAO.java</file>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/ThongKe.java</file>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/dao/HoaDonDAO.java</file>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/ThuVienTienIch/NumberFormatter.java</file>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/Object/SanPhamObject.java</file>
         </group>
     </open-files>
 </project-private>
