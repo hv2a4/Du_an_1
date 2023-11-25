@@ -6,6 +6,8 @@ import com.quanlyquananvat.ThuVienTienIch.MsgBox;
 import com.quanlyquananvat.dao.HoaDonChiTietDAO;
 import com.quanlyquananvat.dao.HoaDonDAO;
 import com.quanlyquananvat.dao.InHoaDonDAO;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,18 +15,21 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JFileChooser;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 public class ChiTietHoaDon extends javax.swing.JDialog {
-
+    
     InHoaDonDAO hdeAO = new InHoaDonDAO();
     HoaDonDAO hddao = new HoaDonDAO();
     HoaDonChiTietDAO hddctdao = new HoaDonChiTietDAO();
     SimpleDateFormat d = new SimpleDateFormat("dd/MM/yyyy");
     int row = -1;
     Date s = new Date();
-
+    
     public ChiTietHoaDon(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -34,9 +39,9 @@ public class ChiTietHoaDon extends javax.swing.JDialog {
         lblThoiGian.setText("Thời gian: " + d.format(s));
         setLocationRelativeTo(null);
         fillTableHoaDon();
-        tatBillOrder.setEnabled(false);
+        tatBillOrder.setEditable(false);
     }
-
+    
     public void fillTableHoaDon() {
         DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
         model.setRowCount(0);
@@ -56,7 +61,7 @@ public class ChiTietHoaDon extends javax.swing.JDialog {
             MsgBox.error(this, "Không truy vấn được bảng người học này!");
         }
     }
-
+    
     public void inHoadon() {
         try {
             Date date = new Date();
@@ -71,7 +76,7 @@ public class ChiTietHoaDon extends javax.swing.JDialog {
             String GiaSanPham = tblHoaDon.getValueAt(row, 5).toString();
             String PhiVanChuyen = tblHoaDon.getValueAt(row, 3).toString();
             String tongTien = tblHoaDon.getValueAt(row, 6).toString();
-
+            
             tatBillOrder.append("Tên Sản Phẩm: " + tenSanPham + "\n");
             tatBillOrder.append("Số Lượng: " + soLuong + "\n");
             tatBillOrder.append("Giá Sản Phẩm: " + GiaSanPham + "\n");
@@ -79,19 +84,19 @@ public class ChiTietHoaDon extends javax.swing.JDialog {
             tatBillOrder.append("Tổng Tiền: " + tongTien + "\n");
             tatBillOrder.append("Thời gian: " + dateFormat.format(date) + "\n");
             tatBillOrder.append("-----------------------------------------------------------------------------------\n");
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
+    
     public void printAndSaveInvoice() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Chọn nơi lưu hóa đơn");
         fileChooser.setFileFilter(new FileNameExtensionFilter("Text files (*.txt)", "txt"));
-
+        
         int userSelection = fileChooser.showSaveDialog(null);
-
+        
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             try {
                 // Lấy đường dẫn được chọn
@@ -109,7 +114,7 @@ public class ChiTietHoaDon extends javax.swing.JDialog {
                 String giaSanPham = model.getValueAt(row, 5).toString();
                 String phiVanChuyen = model.getValueAt(row, 3).toString();
                 String tongTien = model.getValueAt(row, 6).toString();
-
+                
                 Date date = new Date();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss -> dd/MM/yyy");
                 tatBillOrder.append("                                     Quán ăn vặt ninh kiểu\n");
@@ -139,20 +144,22 @@ public class ChiTietHoaDon extends javax.swing.JDialog {
 
                 // Đóng BufferedWriter để giải phóng tài nguyên
                 bufferedWriter.close();
-
+                
                 System.out.println("Đã in và lưu hóa đơn vào file " + filePath);
-
+                
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel5 = new javax.swing.JLabel();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         lblHD = new javax.swing.JLabel();
         lblNhanVien = new javax.swing.JLabel();
@@ -170,6 +177,8 @@ public class ChiTietHoaDon extends javax.swing.JDialog {
         jLabel5.setForeground(new java.awt.Color(0, 71, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Danh sách khách hàng");
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -219,10 +228,21 @@ public class ChiTietHoaDon extends javax.swing.JDialog {
             new String [] {
                 "Mã hóa đơn", "Ngày tạo", "Tên sản phẩm ", "Phí vận chuyển", "Số lượng", "Giá sản phẩm", "Tổng tiền"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblHoaDonMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblHoaDonMousePressed(evt);
             }
         });
         jScrollPane2.setViewportView(tblHoaDon);
@@ -296,10 +316,27 @@ public class ChiTietHoaDon extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
-        row = tblHoaDon.getSelectedRow();
-        printAndSaveInvoice();
+        if (SwingUtilities.isRightMouseButton(evt)) {
+            JPopupMenu pop = new JPopupMenu();
+            JMenuItem item = new JMenuItem("Xuất hóa đơn");
+            item.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                   printAndSaveInvoice();
+                }
+            });
+            pop.add(item);
+            pop.show(tblHoaDon, evt.getX(), evt.getY());
+        }
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
+    private void tblHoaDonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMousePressed
+        row = tblHoaDon.getSelectedRow();
+        if (evt.getClickCount() == 2) {
+            inHoadon();
+        }
+    }//GEN-LAST:event_tblHoaDonMousePressed
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -343,7 +380,9 @@ public class ChiTietHoaDon extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;

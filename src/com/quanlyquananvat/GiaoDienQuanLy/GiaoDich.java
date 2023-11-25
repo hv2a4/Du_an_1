@@ -3,7 +3,7 @@ package com.quanlyquananvat.GiaoDienQuanLy;
 import com.quanlyquananvat.Object.GiaoDichObject;
 import com.quanlyquananvat.Object.HoaDonChiTietObject;
 import com.quanlyquananvat.Object.HoaDonObject;
-import com.quanlyquananvat.Object.InHoaDon;
+import com.quanlyquananvat.Object.InHoaDonObject;
 import com.quanlyquananvat.Object.KhachHangObject;
 import com.quanlyquananvat.Object.LoaiSanPhamObject;
 import com.quanlyquananvat.Object.SanPhamObject;
@@ -93,6 +93,7 @@ public class GiaoDich extends javax.swing.JPanel {
         txtTongTien.setEnabled(false);
         txtKhachHang.setEnabled(false);
         txtMaNhanVien1.setEnabled(false);
+        txtMaHoaDon.setEnabled(false);
         fillTableHoaDon();
     }
 
@@ -218,10 +219,6 @@ public class GiaoDich extends javax.swing.JPanel {
         tblHoaDonChiTiet = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblHoaDon = new javax.swing.JTable();
-        btnTrangDau1 = new com.quanlyquananvat.chucNangGiaoDien.Button();
-        btnLui1 = new com.quanlyquananvat.chucNangGiaoDien.Button();
-        btnTien1 = new com.quanlyquananvat.chucNangGiaoDien.Button();
-        btnTrangCuoi1 = new com.quanlyquananvat.chucNangGiaoDien.Button();
         jLabel4 = new javax.swing.JLabel();
         tabGiaoDich = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -307,6 +304,7 @@ public class GiaoDich extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 71, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/quanlyquananvat/Icon/icons8-transaction-70.png"))); // NOI18N
         jLabel1.setText("Giao dịch");
 
         tabbedPaneCustom1.setBackground(new java.awt.Color(242, 242, 242));
@@ -592,7 +590,6 @@ public class GiaoDich extends javax.swing.JPanel {
         });
         tblHoaDonChiTiet.setComponentPopupMenu(jPopupMenu1);
         tblHoaDonChiTiet.setRowHeight(30);
-        tblHoaDonChiTiet.setShowHorizontalLines(true);
         tblHoaDonChiTiet.getTableHeader().setReorderingAllowed(false);
         tblHoaDonChiTiet.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -625,7 +622,7 @@ public class GiaoDich extends javax.swing.JPanel {
             }
         });
         tblHoaDon.setRowHeight(30);
-        tblHoaDon.setShowHorizontalLines(true);
+        tblHoaDon.setShowGrid(false);
         tblHoaDon.getTableHeader().setReorderingAllowed(false);
         tblHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -637,32 +634,6 @@ public class GiaoDich extends javax.swing.JPanel {
         });
         jScrollPane4.setViewportView(tblHoaDon);
 
-        btnTrangDau1.setBackground(new java.awt.Color(67, 110, 238));
-        btnTrangDau1.setForeground(new java.awt.Color(255, 255, 255));
-        btnTrangDau1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/quanlyquananvat/Icon/image 159.png"))); // NOI18N
-        btnTrangDau1.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
-        btnTrangDau1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnTrangDau1.setShadowColor(new java.awt.Color(67, 110, 238));
-
-        btnLui1.setBackground(new java.awt.Color(67, 110, 238));
-        btnLui1.setForeground(new java.awt.Color(255, 255, 255));
-        btnLui1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/quanlyquananvat/Icon/image 157.png"))); // NOI18N
-        btnLui1.setToolTipText("");
-        btnLui1.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
-        btnLui1.setShadowColor(new java.awt.Color(67, 110, 238));
-
-        btnTien1.setBackground(new java.awt.Color(67, 110, 238));
-        btnTien1.setForeground(new java.awt.Color(255, 255, 255));
-        btnTien1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/quanlyquananvat/Icon/image 156.png"))); // NOI18N
-        btnTien1.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
-        btnTien1.setShadowColor(new java.awt.Color(67, 110, 238));
-
-        btnTrangCuoi1.setBackground(new java.awt.Color(67, 110, 238));
-        btnTrangCuoi1.setForeground(new java.awt.Color(255, 255, 255));
-        btnTrangCuoi1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/quanlyquananvat/Icon/image 158.png"))); // NOI18N
-        btnTrangCuoi1.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
-        btnTrangCuoi1.setShadowColor(new java.awt.Color(67, 110, 238));
-
         jLabel4.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Thông tin hóa đơn chi tiết");
@@ -672,21 +643,11 @@ public class GiaoDich extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(216, 216, 216)
-                .addComponent(btnTrangDau1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnLui1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
-                .addComponent(btnTien1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnTrangCuoi1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(218, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 166, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(border_panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -703,13 +664,7 @@ public class GiaoDich extends javax.swing.JPanel {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(border_panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnLui1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTrangDau1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTrangCuoi1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTien1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -737,7 +692,6 @@ public class GiaoDich extends javax.swing.JPanel {
             }
         });
         tblSanPham.setRowHeight(30);
-        tblSanPham.setShowHorizontalLines(true);
         tblSanPham.getTableHeader().setReorderingAllowed(false);
         tblSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -1008,10 +962,11 @@ public class GiaoDich extends javax.swing.JPanel {
     }//GEN-LAST:event_jMenuItem5MouseClicked
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
-         row = tblHoaDon.getSelectedRow();
+        row = tblHoaDon.getSelectedRow();
     }//GEN-LAST:event_tblHoaDonMouseClicked
     public int selectedMaHD = -1;
     public String selectTenKH = "";
+
     public void getMaHD() {
         tblHoaDon.addMouseListener(new MouseAdapter() {
             @Override
@@ -1026,7 +981,7 @@ public class GiaoDich extends javax.swing.JPanel {
                             public void actionPerformed(ActionEvent e) {
                                 ChiTietHoaDon myDialog = new ChiTietHoaDon((JFrame) SwingUtilities.getWindowAncestor(GiaoDich.this), true);
                                 myDialog.setVisible(true);
-                               
+
                             }
                         });
                         popupMenu.add(menuItem);
@@ -1040,8 +995,8 @@ public class GiaoDich extends javax.swing.JPanel {
             }
         });
 
-      
     }
+
     public HoaDonObject getHoaDon() {
         HoaDonObject hd = new HoaDonObject();
         String MaKH = hddao.layMaKhachHang(txtKhachHang.getText());
@@ -1119,7 +1074,7 @@ public class GiaoDich extends javax.swing.JPanel {
 
             SanPhamObject sp = spdao.selectById(maSP);
             sp.setSoLuong(soLuongSP - soLuong);
-            InHoaDon.setSoLuong(soLuong);
+            InHoaDonObject.setSoLuong(soLuong);
             spdao.update(sp);
 
             if (sp != null) {
@@ -1244,7 +1199,8 @@ public class GiaoDich extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
         List<HoaDonObject> list = hddao.selectAll();
         try {
-            for (HoaDonObject e : list) {
+            for ( HoaDonObject e:list) {
+                
                 String tenPhuongThuc = "";
                 if (e.getMaThanhToan().equalsIgnoreCase("TT001")) {
                     tenPhuongThuc += "Tiền mặt";
@@ -1308,18 +1264,14 @@ public class GiaoDich extends javax.swing.JPanel {
     private com.quanlyquananvat.chucNangGiaoDien.Button btnHuyDon;
     private com.quanlyquananvat.chucNangGiaoDien.Button btnInDon;
     private com.quanlyquananvat.chucNangGiaoDien.Button btnLui;
-    private com.quanlyquananvat.chucNangGiaoDien.Button btnLui1;
     private com.quanlyquananvat.chucNangGiaoDien.Button btnLui2;
     private com.quanlyquananvat.chucNangGiaoDien.Button btnTaoDon;
     private com.quanlyquananvat.chucNangGiaoDien.Button btnThanhToan;
     private com.quanlyquananvat.chucNangGiaoDien.Button btnTien;
-    private com.quanlyquananvat.chucNangGiaoDien.Button btnTien1;
     private com.quanlyquananvat.chucNangGiaoDien.Button btnTien2;
     private com.quanlyquananvat.chucNangGiaoDien.Button btnTrangCuoi;
-    private com.quanlyquananvat.chucNangGiaoDien.Button btnTrangCuoi1;
     private com.quanlyquananvat.chucNangGiaoDien.Button btnTrangCuoi3;
     private com.quanlyquananvat.chucNangGiaoDien.Button btnTrangDau;
-    private com.quanlyquananvat.chucNangGiaoDien.Button btnTrangDau1;
     private com.quanlyquananvat.chucNangGiaoDien.Button btnTrangDau2;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;

@@ -149,6 +149,9 @@
               <Color blue="ff" green="47" red="0" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/quanlyquananvat/Icon/icons8-list-50.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Danh s&#xe1;ch kh&#xe1;ch h&#xe0;ng"/>
           </Properties>
         </Component>

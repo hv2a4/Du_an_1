@@ -20,6 +20,7 @@ GioiTinh bit not null,
 SoDienThoai varchar(12) not null,
 Email varchar(50) not null,
 NgaySinh date not null,
+HinhAnh nvarchar(225) not null
 )
 go
 -- tạo bảng phương thức thanh toán
@@ -64,7 +65,7 @@ TenSP nvarchar(50) not null,
 SoLuong int not null,
 GiaSP float not null,
 NgayNhap date not null,
-MoTa nvarchar(225) not null,
+MoTa nvarchar(225)  null,
 HinhAnh varchar(225) not null,
 MaLoaiSanPham varchar(10) not null
 )
@@ -145,18 +146,27 @@ VALUES
 ('NV010', 'Nguyen Thi K', '123abc', '0912345678', 'avatar10.jpg', 0);
 
 -- Thêm dữ liệu cho bảng KhachHang
-INSERT INTO KhachHang (MaKH, TenKH, DiaChi, GioiTinh, SoDienThoai, Email, NgaySinh)
-VALUES
-('KH001', 'Le Minh C', '123 ABC Street', 1, '0123456789', 'leminhc@gmail.com', '1990-05-20'),
-('KH002', 'Nguyen Thi D', '456 XYZ Street', 0, '0987654321', 'nguyenthid@gmail.com', '1985-08-15'),
-('KH003', 'Tran Van E', '789 QWE Street', 1, '0234567891', 'tranve@gmail.com', '1988-12-10'),
-('KH004', 'Hoang Thi F', '101 PQR Street', 0, '0345678912', 'hoangthi@gmail.com', '1995-02-25'),
-('KH005', 'Mai Van G', '202 ZXC Street', 1, '0456789123', 'maivan@gmail.com', '1983-07-18'),
-('KH006', 'Dinh Thi H', '303 ASD Street', 0, '0567891234', 'dinhthi@gmail.com', '1979-11-30'),
-('KH007', 'Do Van I', '404 QAZ Street', 1, '0678912345', 'dovan@gmail.com', '1992-04-05'),
-('KH008', 'Tran Thi K', '505 LKJ Street', 0, '0789123456', 'tranthi@gmail.com', '1987-09-15'),
-('KH009', 'Nguyen Van L', '606 JKL Street', 1, '0891234567', 'nguyenl@gmail.com', '1980-03-08'),
-('KH010', 'Le Van M', '707 WER Street', 0, '0912345678', 'levanm@gmail.com', '1998-06-12');
+INSERT INTO KhachHang (MaKH, TenKH, DiaChi, GioiTinh, SoDienThoai, Email, NgaySinh, HinhAnh)
+VALUES 
+('KH001', 'Nguyen Van A', '123 ABC Street, Quan 1, TP.HCM', 1, '0123456789', 'nguyenvana@email.com', '1990-01-15', 'avatar1.jpg'),
+
+('KH002', 'Tran Thi B', '456 XYZ Street, Quan 2, TP.HCM', 0, '0987654321', 'tranthib@email.com', '1985-05-20', 'avatar2.jpg'),
+
+('KH003', 'Le Van C', '789 DEF Street, Quan 3, TP.HCM', 1, '0345678901', 'levanc@email.com', '2000-09-10', 'avatar3.jpg'),
+
+('KH004', 'Pham Thi D', '101 GHI Street, Quan 4, TP.HCM', 0, '0765432109', 'phamthid@email.com', '1998-03-25', 'avatar4.jpg'),
+
+('KH005', 'Vo Van E', '202 JKL Street, Quan 5, TP.HCM', 1, '0234567890', 'vovane@email.com', '1992-11-12', 'avatar5.jpg'),
+
+('KH006', 'Nguyen Thi F', '303 MNO Street, Quan 6, TP.HCM', 0, '0456789012', 'nguyenthif@email.com', '1987-07-05', 'avatar6.jpg'),
+
+('KH007', 'Tran Van G', '404 PQR Street, Quan 7, TP.HCM', 1, '0678901234', 'tranvang@email.com', '1995-02-18', 'avatar7.jpg'),
+
+('KH008', 'Le Thi H', '505 STU Street, Quan 8, TP.HCM', 0, '0890123456', 'lethih@email.com', '1980-12-30', 'avatar8.jpg'),
+
+('KH009', 'Pham Van I', '606 VWX Street, Quan 9, TP.HCM', 1, '0987654321', 'phamvani@email.com', '1993-06-08', 'avatar9.jpg'),
+
+('KH010', 'Vo Thi K', '707 YZA Street, Quan 10, TP.HCM', 0, '0123456789', 'vothik@email.com', '1983-04-02', 'avatar10.jpg');
 
 -- Thêm dữ liệu cho bảng PhuongThucThanhToan
 INSERT INTO PhuongThucThanhToan (MaThanhToan, TenPTTT)
@@ -244,3 +254,22 @@ from HoaDon
 inner join HoaDonChiTiet on HoaDon.MaHD = HoaDonChiTiet.MaHoaDon 
 where hoadon.MaHD = @MaHD
 end
+
+go
+create or alter proc SP_DoanhThu(@Nam nvarchar(20))
+as
+begin 
+select 
+HoaDonChiTiet.TenSanPham as tenSanPham,
+count(*) as soLuongSanPham,
+SUM(HoaDon.TongTien) as tongDoanhThu,
+MAX(HoaDon.TongTien) as DoanhThuCao,
+MIN(HoaDon.TongTien) as DoanhThuIt,
+AVG(HoaDon.TongTien) as DoanhThuTB
+from SanPham
+inner join HoaDonChiTiet on SanPham.MaSP = HoaDonChiTiet.MaSP
+inner join HoaDon on HoaDon.MaHD = HoaDonChiTiet.MaHoaDon
+where YEAR(NgayTao) = @Nam 
+Group by HoaDonChiTiet.TenSanPham
+end
+

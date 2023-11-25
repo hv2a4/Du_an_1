@@ -18,6 +18,8 @@ public class HoaDonDAO extends DAO<HoaDonObject, Integer> {
     final String MaHDMoi = "select max(MaHD) as MaHD from HoaDon";
     final String SELECT_MAKH = "select top 1 MaKH from KhachHang where TenKH like ?";
     final String ten_MaKH = "select TenKH from KhachHang where MaKH = ?";
+    final String Select_year_byHoaDon = "select distinct YEAR(NgayTao) as nam from HoaDon order by YEAR(NgayTao) desc";
+
     @Override
     public void insert(HoaDonObject entiTy) {
         JdbcHelper.update(Insert_sql, entiTy.getMaKH(), entiTy.getMaNV(), entiTy.getNgayTao(),
@@ -114,5 +116,19 @@ public class HoaDonDAO extends DAO<HoaDonObject, Integer> {
             throw new RuntimeException(e);
         }
         return "";
+    }
+
+    public List<Integer> getYear() {
+        List<Integer> list = new ArrayList<>();
+        try {
+            ResultSet rs = JdbcHelper.query(Select_year_byHoaDon);
+            while (rs.next()) {
+                list.add(rs.getInt(1));
+            }
+            rs.getStatement().getConnection().close();
+            return list;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

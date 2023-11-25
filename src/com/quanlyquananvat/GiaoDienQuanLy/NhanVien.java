@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.border.DropShadowBorder;
 
@@ -449,6 +450,7 @@ public class NhanVien extends javax.swing.JPanel {
             }
         });
 
+        tblNhanVien.setBackground(new java.awt.Color(255, 255, 255));
         tblNhanVien.setForeground(new java.awt.Color(0, 0, 0));
         tblNhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -471,7 +473,6 @@ public class NhanVien extends javax.swing.JPanel {
         });
         tblNhanVien.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tblNhanVien.setRowHeight(30);
-        tblNhanVien.setShowHorizontalLines(true);
         tblNhanVien.getTableHeader().setReorderingAllowed(false);
         tblNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -672,7 +673,7 @@ public class NhanVien extends javax.swing.JPanel {
     }//GEN-LAST:event_btnTrangCuoiActionPerformed
 
     private void TabNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabNhanVienMouseClicked
-     
+
     }//GEN-LAST:event_TabNhanVienMouseClicked
     public void clearnForm() {
         this.setForm(new NhanVienObject());
@@ -708,7 +709,7 @@ public class NhanVien extends javax.swing.JPanel {
                 this.fillTable();
                 this.clearnForm();
                 TabNhanVien.setSelectedIndex(1);
-                MsgBox.alert(this, "Sửa thành công!");
+                MsgBox.alert(this, "Sửa thông tin thành công thành công!");
             } catch (Exception e) {
                 e.printStackTrace();
                 MsgBox.warning(this, "Sửa thất bại!");
@@ -724,10 +725,14 @@ public class NhanVien extends javax.swing.JPanel {
             if (!maNV.isEmpty()) {
                 if (MsgBox.confim(this, "Bạn thực sự muốn xóa nhân viên này!")) {
                     try {
-                        nvdao.delete(maNV);
-                        this.fillTable();
-                        this.clearnForm();
-                        MsgBox.alert(this, "Xóa thành công!");
+                        int xoa = JOptionPane.showConfirmDialog(this, "Bạn có chắc chán muốn xóa khách hàng " + maNV + " không", "Xóa khách hàng", JOptionPane.YES_NO_OPTION);
+                        if (xoa == JOptionPane.YES_OPTION) {
+                            nvdao.delete(maNV);
+                            this.fillTable();
+                            this.clearnForm();
+                            MsgBox.alert(this, "Xóa thông tin thành công!");
+                        }
+
                     } catch (Exception e) {
                         e.printStackTrace();
                         MsgBox.error(this, "Xóa thất bại! " + e.getMessage());

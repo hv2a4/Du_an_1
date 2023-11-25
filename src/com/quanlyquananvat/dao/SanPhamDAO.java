@@ -14,6 +14,7 @@ public class SanPhamDAO extends DAO<SanPhamObject, String> {
     final String Delete_sql = "DELETE FROM sanpham WHERE MaSP=?";
     final String Select_all_sql = "SELECT * FROM sanpham";
     final String Select_ById_sql = "SELECT * FROM sanpham WHERE MaSP=?";
+    final String TenSanPham = "select * from SanPham where TenSP like N'%' + ? + '%'";
 
     @Override
     public void insert(SanPhamObject entiTy) {
@@ -72,5 +73,9 @@ public class SanPhamDAO extends DAO<SanPhamObject, String> {
     public List<SanPhamObject> select_all_lsp(String maLSP) {
         final String Select_all_sanPham = "select * from SanPham where MaLoaiSanPham = ?";
         return selectBySQL(Select_all_sanPham, maLSP);
+    }
+
+    public List<SanPhamObject> select_all_sp(String tenSP) {
+        return selectBySQL(TenSanPham, tenSP);
     }
 }
