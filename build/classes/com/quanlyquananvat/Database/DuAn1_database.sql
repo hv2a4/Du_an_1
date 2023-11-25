@@ -229,3 +229,37 @@ VALUES
 ('SP009', N'Pepsi', 35, 1.2, '2020-09-08', N'Nước ngọt Pepsi', 'pepsi.jpg', 'LSP002'),
 ('SP010', N'Hamburger', 15, 5.0, '2019-12-05', N'Bánh hamburger thịt bò', 'hamburger.jpg', 'LSP004'),
 ('SP011', N'Sinh tố dâu', 28, 4.2, '2023-02-18', N'Sinh tố dâu tươi', 'sinhtodau.jpg', 'LSP002');
+
+create or alter proc SP_SelectHD (@MaHD int)
+as
+begin 
+select HoaDon.MaHD as MaHD,
+NgayTao as ngayTao,
+PhiGiaoNhanh as phiVanChuyen,
+TenSanPham as tenSanPham,
+SoLuong as soLuong,
+Gia as giaSP,
+hoadon.TongTien as tongTien
+from HoaDon 
+inner join HoaDonChiTiet on HoaDon.MaHD = HoaDonChiTiet.MaHoaDon 
+where hoadon.MaHD = @MaHD
+end
+
+go
+create or alter proc SP_DoanhThu(@Nam nvarchar(20))
+as
+begin 
+select 
+HoaDonChiTiet.TenSanPham as tenSanPham,
+count(*) as soLuongSanPham,
+SUM(HoaDon.TongTien) as tongDoanhThu,
+MAX(HoaDon.TongTien) as DoanhThuCao,
+MIN(HoaDon.TongTien) as DoanhThuIt,
+AVG(HoaDon.TongTien) as DoanhThuTB
+from SanPham
+inner join HoaDonChiTiet on SanPham.MaSP = HoaDonChiTiet.MaSP
+inner join HoaDon on HoaDon.MaHD = HoaDonChiTiet.MaHoaDon
+where YEAR(NgayTao) = @Nam 
+Group by HoaDonChiTiet.TenSanPham
+end
+

@@ -93,6 +93,7 @@ public class GiaoDich extends javax.swing.JPanel {
         txtTongTien.setEnabled(false);
         txtKhachHang.setEnabled(false);
         txtMaNhanVien1.setEnabled(false);
+        txtMaHoaDon.setEnabled(false);
         fillTableHoaDon();
     }
 
@@ -592,7 +593,6 @@ public class GiaoDich extends javax.swing.JPanel {
         });
         tblHoaDonChiTiet.setComponentPopupMenu(jPopupMenu1);
         tblHoaDonChiTiet.setRowHeight(30);
-        tblHoaDonChiTiet.setShowHorizontalLines(true);
         tblHoaDonChiTiet.getTableHeader().setReorderingAllowed(false);
         tblHoaDonChiTiet.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -625,7 +625,7 @@ public class GiaoDich extends javax.swing.JPanel {
             }
         });
         tblHoaDon.setRowHeight(30);
-        tblHoaDon.setShowHorizontalLines(true);
+        tblHoaDon.setShowGrid(false);
         tblHoaDon.getTableHeader().setReorderingAllowed(false);
         tblHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -737,7 +737,6 @@ public class GiaoDich extends javax.swing.JPanel {
             }
         });
         tblSanPham.setRowHeight(30);
-        tblSanPham.setShowHorizontalLines(true);
         tblSanPham.getTableHeader().setReorderingAllowed(false);
         tblSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {

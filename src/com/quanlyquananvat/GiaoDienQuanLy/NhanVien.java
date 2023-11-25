@@ -471,7 +471,6 @@ public class NhanVien extends javax.swing.JPanel {
         });
         tblNhanVien.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tblNhanVien.setRowHeight(30);
-        tblNhanVien.setShowHorizontalLines(true);
         tblNhanVien.getTableHeader().setReorderingAllowed(false);
         tblNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
