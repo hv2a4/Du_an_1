@@ -6,6 +6,8 @@ import com.quanlyquananvat.GiaoDienQuanLy.NhanVien;
 import com.quanlyquananvat.GiaoDienQuanLy.SanPham;
 import com.quanlyquananvat.GiaoDienQuanLy.ThongKe;
 import com.quanlyquananvat.GiaoDienQuanLy.TrangChu;
+import com.quanlyquananvat.ThuVienTienIch.Auth;
+import com.quanlyquananvat.ThuVienTienIch.MsgBox;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
@@ -60,21 +62,39 @@ public class ChuyenManHinhController {
 
             switch (kind) {
                 case "Trang Chu":
+
                     node = new TrangChu();
                     break;
                 case "khach hang":
+                    if (!Auth.isLogin()) {
+                        return;
+                    }
                     node = new KhachHang();
                     break;
                 case "nhan vien":
+                    if (!Auth.isLogin()) {
+                        return;
+                    } else if (!Auth.isManager()) {
+                        return;
+                    }
                     node = new NhanVien();
                     break;
                 case "san pham":
+                    if (!Auth.isLogin()) {
+                        return;
+                    }
                     node = new SanPham();
                     break;
                 case "giao dich":
+                    if (!Auth.isLogin()) {
+                        return;
+                    }
                     node = new GiaoDich();
                     break;
                 case "ThongKe":
+                    if (!Auth.isLogin()) {
+                        return;
+                    }
                     node = new ThongKe();
                     break;
 
@@ -111,8 +131,8 @@ public class ChuyenManHinhController {
         @Override
         public void mouseExited(MouseEvent e) {
             if (!kindSelection.equalsIgnoreCase(kind)) {
-                jpnItem.setBackground(new Color(67,110,238));
-                lblItem.setBackground(new Color(67,110,238));
+                jpnItem.setBackground(new Color(67, 110, 238));
+                lblItem.setBackground(new Color(67, 110, 238));
             }
         }
 
@@ -122,8 +142,8 @@ public class ChuyenManHinhController {
                     item.getJpn().setBackground(new Color(0, 179, 60));
                     item.getJlb().setBackground(new Color(0, 179, 60));
                 } else {
-                    item.getJpn().setBackground(new Color(67,110,238));
-                    item.getJlb().setBackground(new Color(67,110,238));
+                    item.getJpn().setBackground(new Color(67, 110, 238));
+                    item.getJlb().setBackground(new Color(67, 110, 238));
                 }
             }
         }

@@ -16,6 +16,7 @@ import java.util.List;
 import javax.swing.Action;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
@@ -66,7 +67,7 @@ public class ThongKe extends javax.swing.JPanel {
                     model.addRow(new Object[]{
                         objects[0],
                         objects[1],
-                        objects[2],
+                        NumberFormatter.format((double) objects[2]),
                         objects[3],
                         objects[4],
                         NumberFormatter.format((double) objects[5]),});
@@ -229,14 +230,24 @@ public class ThongKe extends javax.swing.JPanel {
         if (SwingUtilities.isRightMouseButton(evt)) {
             JPopupMenu pop = new JPopupMenu();
             JMenuItem item = new JMenuItem("Hiệu thị dạng biểu đồ");
+            JMenuItem imItem = new JMenuItem("Biểu đồ loại sản phẩm");
             item.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    BieuDoTongDoanhThu s = new BieuDoTongDoanhThu((JFrame)SwingUtilities.getWindowAncestor(ThongKe.this),true);
+                    BieuDoTongDoanhThu s = new BieuDoTongDoanhThu((JFrame) SwingUtilities.getWindowAncestor(ThongKe.this), true);
                     s.setVisible(true);
                 }
             });
+            imItem.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    ThongKeDoanhThuLSP d = new ThongKeDoanhThuLSP((JFrame) SwingUtilities.getWindowAncestor(ThongKe.this), true);
+                    d.setVisible(true);
+                }
+            });
             pop.add(item);
+            pop.add(imItem);
+            pop.show(tblDoanhThu, evt.getX(), evt.getY());
             pop.show(tblDoanhThu, evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_tblDoanhThuMouseClicked

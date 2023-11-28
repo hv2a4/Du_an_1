@@ -99,6 +99,7 @@ public class DanhSachKhachHang extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 71, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/quanlyquananvat/Icon/icons8-list-50.png"))); // NOI18N
         jLabel1.setText("Danh sách khách hàng");
 
         btnThem.setBackground(new java.awt.Color(0, 225, 0));
@@ -153,12 +154,18 @@ public class DanhSachKhachHang extends javax.swing.JDialog {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         add();
-        this.dispose();
+
     }//GEN-LAST:event_btnThemActionPerformed
 
     public void add() {
-        GiaoDichObject.setSelectValue((String) tblKhachHang.getValueAt(row, 1));
+        if (row != -1 && row < tblKhachHang.getRowCount()) {
+            GiaoDichObject.setSelectValue((String) tblKhachHang.getValueAt(row, 1));
+            this.dispose();
+        } else {
+            MsgBox.warning(this, "Vui lòng chọn một khách hàng.");
+        }
     }
+
 
     private void tblKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhachHangMouseClicked
         row = tblKhachHang.getSelectedRow();

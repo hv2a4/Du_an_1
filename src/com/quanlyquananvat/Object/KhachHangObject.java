@@ -11,11 +11,9 @@ public class KhachHangObject {
     private boolean GioiTinh;
     private String Email;
     private Date NgaySinh;
+    private String hinhAnh;
 
-    public KhachHangObject() {
-    }
-
-    public KhachHangObject(String MaKH, String TenKH, String DiaChi, String SoDienThoai, boolean GioiTinh, String Email, Date NgaySinh) {
+    public KhachHangObject(String MaKH, String TenKH, String DiaChi, String SoDienThoai, boolean GioiTinh, String Email, Date NgaySinh, String hinhAnh) {
         this.MaKH = MaKH;
         this.TenKH = TenKH;
         this.DiaChi = DiaChi;
@@ -23,6 +21,10 @@ public class KhachHangObject {
         this.GioiTinh = GioiTinh;
         this.Email = Email;
         this.NgaySinh = NgaySinh;
+        this.hinhAnh = hinhAnh;
+    }
+
+    public KhachHangObject() {
     }
 
     public String getMaKH() {
@@ -79,6 +81,14 @@ public class KhachHangObject {
 
     public void setNgaySinh(Date NgaySinh) {
         this.NgaySinh = NgaySinh;
+    }
+
+    public String getHinhAnh() {
+        return hinhAnh;
+    }
+
+    public void setHinhAnh(String hinhAnh) {
+        this.hinhAnh = hinhAnh;
     }
 
     @Override

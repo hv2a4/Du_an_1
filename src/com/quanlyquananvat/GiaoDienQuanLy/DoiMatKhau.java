@@ -234,10 +234,20 @@ public class DoiMatKhau extends javax.swing.JDialog {
         String matKhauMoi = new String(txtMatKhauMoi.getPassword());
         String xacNhanMatKhau = new String(txtXacNhanMatKhau.getPassword());
 
-        if (!tenTaiKhoan.equalsIgnoreCase(Auth.user.getMaNV())) {
+        if (tenTaiKhoan == null || tenTaiKhoan.isEmpty()) {
+            MsgBox.error(this, "Vui lòng nhập tên đăng nhập!");
+        } else if (matKhauCu == null || matKhauCu.isEmpty()) {
+            MsgBox.error(this, "Vui lòng nhập mật khẩu cũ!");
+        } else if (matKhauMoi == null || matKhauMoi.isEmpty()) {
+            MsgBox.error(this, "Vui lòng nhập mật khẩu mới!");
+        } else if (xacNhanMatKhau == null || xacNhanMatKhau.isEmpty()) {
+            MsgBox.error(this, "Vui lòng xác nhận mật khẩu!");
+        } else if (!tenTaiKhoan.equalsIgnoreCase(Auth.user.getMaNV())) {
             MsgBox.error(this, "Sai tên đăng nhập!");
-        } else if (!matKhauCu.equalsIgnoreCase(Auth.user.getMauKhau())) {
+        } else if (!matKhauCu.equals(Auth.user.getMauKhau())) {
             MsgBox.error(this, "Sai mật khẩu!");
+        } else if (matKhauMoi.equals(Auth.user.getMauKhau())) {
+            MsgBox.error(this, "Mật khẩu mới phải khác mật khẩu cũ!");
         } else if (!matKhauMoi.equals(xacNhanMatKhau)) {
             MsgBox.error(this, "Xác nhận mật khẩu không đúng");
         } else {
@@ -246,8 +256,8 @@ public class DoiMatKhau extends javax.swing.JDialog {
             MsgBox.alert(this, "Đổi mật khẩu thành công");
             this.dispose();
         }
-
     }
+
     private void txtMatKhauMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMatKhauMoiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMatKhauMoiActionPerformed
@@ -277,7 +287,7 @@ public class DoiMatKhau extends javax.swing.JDialog {
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
-       xacNhanMatKhau();
+        xacNhanMatKhau();
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
     /**

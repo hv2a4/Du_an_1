@@ -9,6 +9,7 @@ import com.quanlyquananvat.ThuVienTienIch.Auth;
 import com.quanlyquananvat.ThuVienTienIch.MsgBox;
 import com.quanlyquananvat.dao.NhanVienDAO;
 import java.awt.Color;
+import java.util.Objects;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
@@ -30,6 +31,8 @@ public class DangNhap extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         txtTaiKhoan.setText("NV001");
         txtMatKhau.setText("password123");
+//        txtTaiKhoan.setText("NV002");
+//        txtMatKhau.setText("pass456");
         
     }
     
@@ -307,16 +310,24 @@ public class DangNhap extends javax.swing.JDialog {
     public void dangNhap() {
         String maNV = txtTaiKhoan.getText();
         String matKhau = new String(txtMatKhau.getPassword());
+
+        // Kiểm tra rỗng
+        if (maNV.isEmpty() || matKhau.isEmpty()) {
+            MsgBox.alert(this, "Vui lòng nhập tên đăng nhập và mật khẩu");
+            return;
+        }
+        
         NhanVienObject nv = entity.selectById(maNV);
         if (nv == null) {
             MsgBox.alert(this, "Sai tên đăng nhập");
         } else {
-            if (!nv.getMauKhau().equals(matKhau)) {
+            // Sử dụng Objects.equals để so sánh chuỗi
+            if (!Objects.equals(nv.getMauKhau(), matKhau)) {
                 MsgBox.alert(this, "Sai mật khẩu");
             } else {
+                // Mã hóa mật khẩu ở đây nếu bạn sử dụng thuật toán mã hóa
                 Auth.user = nv;
                 this.dispose();
-                
             }
         }
     }

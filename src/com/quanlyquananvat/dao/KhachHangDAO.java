@@ -11,28 +11,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
 
-/**
- *
- * @author pc
- */
 public class KhachHangDAO extends DAO<KhachHangObject, String> {
 
-    final String Insert_sql = "INSERT INTO khachhang(MaKH, TenKH, DiaChi, GioiTinh, SoDienThoai, Email, NgaySinh) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    final String Udate_sql = " UPDATE khachhang SET TenKH=?, DiaChi=?, GioiTinh=?, SoDienThoai=?, Email=?, NgaySinh=? WHERE MaKH=?";
-    final String Delete_sql = " DELETE FROM khachhang WHERE MaKH=?";
-    final String Select_all_sql = "select * from KhachHang";
-    final String Select_ById_sql = "SELECT * FROM khachhang WHERE MaKH=?";
+    final String Insert_sql = "INSERT INTO KhachHang(MaKH, TenKH, DiaChi, GioiTinh, SoDienThoai, Email, NgaySinh, HinhAnh) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    final String Update_sql = "UPDATE KhachHang SET TenKH=?, DiaChi=?, GioiTinh=?, SoDienThoai=?, Email=?, NgaySinh=?, HinhAnh=? WHERE MaKH=?";
+    final String Delete_sql = "DELETE FROM KhachHang WHERE MaKH=?";
+    final String Select_all_sql = "SELECT * FROM KhachHang";
+    final String Select_ById_sql = "SELECT * FROM KhachHang WHERE MaKH=?";
+    final String Search_name = "select * from KhachHang where TenKH like N'%' + ? + '%'";
 
     @Override
     public void insert(KhachHangObject entiTy) {
         JdbcHelper.update(Insert_sql, entiTy.getMaKH(), entiTy.getTenKH(), entiTy.getDiaChi(),
-                entiTy.isGioiTinh(), entiTy.getSoDienThoai(), entiTy.getEmail(), entiTy.getNgaySinh());
+                entiTy.isGioiTinh(), entiTy.getSoDienThoai(), entiTy.getEmail(),
+                entiTy.getNgaySinh(), entiTy.getHinhAnh());
     }
 
     @Override
     public void update(KhachHangObject entiTy) {
-        JdbcHelper.update(Udate_sql, entiTy.getTenKH(), entiTy.getDiaChi(),
-                entiTy.isGioiTinh(), entiTy.getSoDienThoai(), entiTy.getEmail(), entiTy.getNgaySinh(), entiTy.getMaKH());
+        JdbcHelper.update(Update_sql, entiTy.getTenKH(), entiTy.getDiaChi(),
+                entiTy.isGioiTinh(), entiTy.getSoDienThoai(), entiTy.getEmail(),
+                entiTy.getNgaySinh(), entiTy.getHinhAnh(), entiTy.getMaKH());
     }
 
     @Override
@@ -68,6 +67,7 @@ public class KhachHangDAO extends DAO<KhachHangObject, String> {
                 kh.setSoDienThoai(rs.getString("SoDienThoai"));
                 kh.setEmail(rs.getString("Email"));
                 kh.setNgaySinh(rs.getDate("NgaySinh"));
+                kh.setHinhAnh(rs.getString("HinhAnh"));
                 list.add(kh);
             }
         } catch (Exception e) {
@@ -76,4 +76,9 @@ public class KhachHangDAO extends DAO<KhachHangObject, String> {
         return list;
     }
 
+    public List<KhachHangObject> search_name(String name) {
+        return selectBySQL(Search_name, name);
+    }
+
+    
 }

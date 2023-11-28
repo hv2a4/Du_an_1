@@ -7,6 +7,7 @@ public class ThongKeDoanhThuLSP extends javax.swing.JDialog {
         initComponents();
         QuanLyThongKeControler qltkc = new QuanLyThongKeControler();
         qltkc.setDataToChar(jPanel2);
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")

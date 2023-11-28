@@ -115,6 +115,7 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem3ActionPerformed"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jMenuItem3KeyReleased"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
@@ -385,6 +386,9 @@
                     <Property name="text" type="java.lang.String" value="Kh&#xe1;ch H&#xe0;ng"/>
                     <Property name="horizontalTextPosition" type="int" value="4"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblKhachHnagMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -394,6 +398,9 @@
                   <Color blue="ee" green="6e" red="43" type="rgb"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="PanelNhanVienMouseClicked"/>
+              </Events>
 
               <Layout>
                 <DimensionLayout dim="0">
@@ -429,6 +436,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="  Nh&#xe2;n vi&#xea;n"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblNhanVienMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -473,6 +483,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value=" S&#x1ea3;n ph&#x1ea9;m"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblSanPhamMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -517,6 +530,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value=" Giao d&#x1ecb;ch"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblGiaoDichMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -561,6 +577,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value=" Th&#x1ed1;ng k&#xea;"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblThongKeMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

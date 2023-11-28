@@ -1,4 +1,3 @@
-
 package com.quanlyquananvat.MainChayGiaoDien;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
@@ -6,6 +5,7 @@ import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
 import com.quanlyquananvat.GiaoDienQuanLy.DangNhap;
+import com.quanlyquananvat.GiaoDienQuanLy.DataAddedListener;
 import com.quanlyquananvat.GiaoDienQuanLy.DoiMatKhau;
 import com.quanlyquananvat.GiaoDienQuanLy.GiaoDich;
 import com.quanlyquananvat.ThuVienTienIch.Auth;
@@ -27,8 +27,9 @@ import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.UIManager;
 
-
 public class RunMain extends javax.swing.JFrame {
+
+   
 
     public RunMain() {
         initComponents();
@@ -51,9 +52,10 @@ public class RunMain extends javax.swing.JFrame {
         list.add(new DanhSachQuanLy("giao dich", PanelGiaoDich, lblGiaoDich));
         list.add(new DanhSachQuanLy("ThongKe", PanelThongKe, lblThongKe));
         chuyenManHinhController.setEvent(list);
-        this.dangNhap();
-        txtTaiKhoanName.setText(Auth.user.getMaNV());
-        txtPhanQuan.setText(Auth.user.isVaiTro() ? "Quản lý" : "Nhân viên");
+        if (!Auth.isLogin()) {
+            dangNhap();
+        }
+        updateUserInfo();
         setMenuBar(null);
 
     }
@@ -137,6 +139,11 @@ public class RunMain extends javax.swing.JFrame {
         lblKhachHnag.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/quanlyquananvat/Icon/image 84.png"))); // NOI18N
         lblKhachHnag.setText("Khách Hàng");
         lblKhachHnag.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        lblKhachHnag.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblKhachHnagMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout PanelKhachHangLayout = new javax.swing.GroupLayout(PanelKhachHang);
         PanelKhachHang.setLayout(PanelKhachHangLayout);
@@ -156,11 +163,21 @@ public class RunMain extends javax.swing.JFrame {
         );
 
         PanelNhanVien.setBackground(new java.awt.Color(67, 110, 238));
+        PanelNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelNhanVienMouseClicked(evt);
+            }
+        });
 
         lblNhanVien.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         lblNhanVien.setForeground(new java.awt.Color(255, 255, 255));
         lblNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/quanlyquananvat/Icon/image 85.png"))); // NOI18N
         lblNhanVien.setText("  Nhân viên");
+        lblNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblNhanVienMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout PanelNhanVienLayout = new javax.swing.GroupLayout(PanelNhanVien);
         PanelNhanVien.setLayout(PanelNhanVienLayout);
@@ -185,6 +202,11 @@ public class RunMain extends javax.swing.JFrame {
         lblSanPham.setForeground(new java.awt.Color(255, 255, 255));
         lblSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/quanlyquananvat/Icon/image 86.png"))); // NOI18N
         lblSanPham.setText(" Sản phẩm");
+        lblSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSanPhamMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout PanelSanPhamLayout = new javax.swing.GroupLayout(PanelSanPham);
         PanelSanPham.setLayout(PanelSanPhamLayout);
@@ -209,6 +231,11 @@ public class RunMain extends javax.swing.JFrame {
         lblGiaoDich.setForeground(new java.awt.Color(255, 255, 255));
         lblGiaoDich.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/quanlyquananvat/Icon/image 191.png"))); // NOI18N
         lblGiaoDich.setText(" Giao dịch");
+        lblGiaoDich.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblGiaoDichMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout PanelGiaoDichLayout = new javax.swing.GroupLayout(PanelGiaoDich);
         PanelGiaoDich.setLayout(PanelGiaoDichLayout);
@@ -233,6 +260,11 @@ public class RunMain extends javax.swing.JFrame {
         lblThongKe.setForeground(new java.awt.Color(255, 255, 255));
         lblThongKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/quanlyquananvat/Icon/image 88.png"))); // NOI18N
         lblThongKe.setText(" Thống kê");
+        lblThongKe.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblThongKeMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout PanelThongKeLayout = new javax.swing.GroupLayout(PanelThongKe);
         PanelThongKe.setLayout(PanelThongKeLayout);
@@ -449,6 +481,11 @@ public class RunMain extends javax.swing.JFrame {
                 jMenuItem3ActionPerformed(evt);
             }
         });
+        jMenuItem3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jMenuItem3KeyReleased(evt);
+            }
+        });
         TaiKhoan.add(jMenuItem3);
 
         jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -480,7 +517,8 @@ public class RunMain extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
- public void startClock() {
+
+    public void startClock() {
         Thread clockThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -553,13 +591,15 @@ public class RunMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        dangXuat();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    public void dangXuat() {
         this.setVisible(false);
         Auth.clear();
         new DangNhap(this, true).setVisible(true);
         this.setVisible(true);
         updateUserInfo();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
+    }
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         String path = "src\\HTML\\gioiThieu.html";
         File htmlFile = new File(path);
@@ -567,7 +607,7 @@ public class RunMain extends javax.swing.JFrame {
         try {
             if (htmlFile.exists()) {
                 Desktop.getDesktop().browse(htmlFile.toURI());
-            }else{
+            } else {
                 MsgBox.warning(this, "Không tìm thấy tệp!");
             }
         } catch (IOException ex) {
@@ -577,9 +617,54 @@ public class RunMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-      
-       
+
+
     }//GEN-LAST:event_formWindowOpened
+
+    private void lblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNhanVienMouseClicked
+        if (!Auth.isLogin()) {
+            MsgBox.alert(this, "Vui lòng đăng nhập");
+        }
+        if (!Auth.isManager()) {
+            MsgBox.warning(this, "Bạn không có quyền sử xem chức năng quản lý này!");
+            return;
+        }
+    }//GEN-LAST:event_lblNhanVienMouseClicked
+
+    private void PanelNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNhanVienMouseClicked
+        if (!Auth.isManager()) {
+            MsgBox.warning(this, "Bạn không có quyền sử xem chức năng quản lý này!");
+            return;
+        }
+    }//GEN-LAST:event_PanelNhanVienMouseClicked
+
+    private void lblKhachHnagMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblKhachHnagMouseClicked
+        if (!Auth.isLogin()) {
+            MsgBox.alert(this, "Vui lòng đăng nhập");
+        }
+    }//GEN-LAST:event_lblKhachHnagMouseClicked
+
+    private void lblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSanPhamMouseClicked
+        if (!Auth.isLogin()) {
+            MsgBox.alert(this, "Vui lòng đăng nhập");
+        }
+    }//GEN-LAST:event_lblSanPhamMouseClicked
+
+    private void lblGiaoDichMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGiaoDichMouseClicked
+        if (!Auth.isLogin()) {
+            MsgBox.alert(this, "Vui lòng đăng nhập");
+        }
+    }//GEN-LAST:event_lblGiaoDichMouseClicked
+
+    private void lblThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThongKeMouseClicked
+        if (!Auth.isLogin()) {
+            MsgBox.alert(this, "Vui lòng đăng nhập");
+        }
+    }//GEN-LAST:event_lblThongKeMouseClicked
+
+    private void jMenuItem3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jMenuItem3KeyReleased
+        dangXuat();
+    }//GEN-LAST:event_jMenuItem3KeyReleased
     public void doiMatKhau() {
         if (Auth.isLogin()) {
             this.dispose();

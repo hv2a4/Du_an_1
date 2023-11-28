@@ -5,11 +5,18 @@ import com.quanlyquananvat.ThuVienTienIch.MsgBox;
 import com.quanlyquananvat.ThuVienTienIch.Ximge;
 import com.quanlyquananvat.dao.NhanVienDAO;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.border.DropShadowBorder;
 
@@ -80,6 +87,14 @@ public class NhanVien extends javax.swing.JPanel {
     public void chonAnh() {
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
+
+            // Kiểm tra định dạng của file ảnh
+            if (!isImageFile(file)) {
+                MsgBox.alert(this, "Hãy chọn file ảnh hợp lệ");
+                return;
+            }
+
+            // Tiếp tục xử lý ảnh nếu định dạng là hợp lệ
             Ximge.save(file);
             ImageIcon icon = Ximge.read(file.getName(), lblAnhDaiDien.getWidth(), lblAnhDaiDien.getHeight());
             if (icon != null) {
@@ -90,6 +105,24 @@ public class NhanVien extends javax.swing.JPanel {
                 MsgBox.alert(this, "Hãy chọn logo hợp lệ");
             }
         }
+    }
+
+    private boolean isImageFile(File file) {
+        // Kiểm tra định dạng file ảnh theo extension
+        String fileName = file.getName();
+        String extension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+
+        // Các định dạng ảnh phổ biến (có thể mở rộng theo nhu cầu của bạn)
+        String[] allowedExtensions = {"jpg", "jpeg", "png", "gif", "bmp"};
+
+        // Kiểm tra xem extension của file có trong danh sách cho phép hay không
+        for (String allowedExtension : allowedExtensions) {
+            if (extension.equals(allowedExtension)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void first() {
@@ -165,6 +198,10 @@ public class NhanVien extends javax.swing.JPanel {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jPopupMenu2 = new javax.swing.JPopupMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         TabNhanVien = new com.quanlyquananvat.chucNangGiaoDien.TabbedPaneCustom();
         jPanel1 = new javax.swing.JPanel();
         border_panel1 = new com.quanlyquananvat.chucNangGiaoDien.Border_panel();
@@ -197,6 +234,10 @@ public class NhanVien extends javax.swing.JPanel {
         btnTrangCuoi = new com.quanlyquananvat.chucNangGiaoDien.Button();
         lblSoTrang = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+
+        jMenuItem1.setText("jMenuItem1");
+
+        jMenuItem2.setText("jMenuItem2");
 
         setBackground(new java.awt.Color(242, 242, 242));
 
@@ -334,6 +375,22 @@ public class NhanVien extends javax.swing.JPanel {
             }
         });
 
+        txtMatKhau.setForeground(new java.awt.Color(0, 0, 0));
+        txtMatKhau.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+        txtMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtMatKhauMouseClicked(evt);
+            }
+        });
+
+        txtXacNhanMatKhau.setForeground(new java.awt.Color(0, 0, 0));
+        txtXacNhanMatKhau.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+        txtXacNhanMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtXacNhanMatKhauMouseClicked(evt);
+            }
+        });
+
         jLabel9.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Số Điện thoại");
@@ -449,6 +506,7 @@ public class NhanVien extends javax.swing.JPanel {
             }
         });
 
+        tblNhanVien.setBackground(new java.awt.Color(255, 255, 255));
         tblNhanVien.setForeground(new java.awt.Color(0, 0, 0));
         tblNhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -671,8 +729,35 @@ public class NhanVien extends javax.swing.JPanel {
     }//GEN-LAST:event_btnTrangCuoiActionPerformed
 
     private void TabNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabNhanVienMouseClicked
-     
+
     }//GEN-LAST:event_TabNhanVienMouseClicked
+
+    private void txtXacNhanMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtXacNhanMatKhauMouseClicked
+
+    }//GEN-LAST:event_txtXacNhanMatKhauMouseClicked
+    int count = 0;
+    private void txtMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtMatKhauMouseClicked
+        if (SwingUtilities.isRightMouseButton(evt)) {
+            JPopupMenu pop = new JPopupMenu();
+            JMenuItem item = new JMenuItem("Hiển thị mật khẩu!");
+            item.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    count++;
+                    if (count == 1) {
+                        txtMatKhau.setEchoChar((char) 0);
+                        txtXacNhanMatKhau.setEchoChar((char) 0);
+                    } else if (count == 2) {
+                        txtMatKhau.setEchoChar('*');
+                        txtXacNhanMatKhau.setEchoChar('*');
+                        count = 0;
+                    }
+                }
+            });
+            pop.add(item);
+            pop.show(txtMatKhau, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_txtMatKhauMouseClicked
     public void clearnForm() {
         this.setForm(new NhanVienObject());
         buttonGroup1.clearSelection();
@@ -683,6 +768,11 @@ public class NhanVien extends javax.swing.JPanel {
     }
 
     public void insert() {
+        String error = hasError();
+        if (error != null) {
+            MsgBox.warning(this, error);
+            return;
+        }
         NhanVienObject nv = getForm();
         try {
             nvdao.insert(nv);
@@ -698,6 +788,48 @@ public class NhanVien extends javax.swing.JPanel {
     public void update() {
         NhanVienObject nv = getForm();
         String conmfig = new String(txtXacNhanMatKhau.getPassword());
+        int row = tblNhanVien.getSelectedRow();
+        if (row < 0) {
+            MsgBox.warning(this, "Vui lòng chọn nhân viên để cập nhật!");
+            return;
+        }
+        String matKhau = new String(txtMatKhau.getPassword());
+        String xacNhanMatKhau = new String(txtXacNhanMatKhau.getPassword());
+        String soDienThoai = txtSoDienThoai.getText().trim();
+        String maNhanVien = txtMaNhanVien.getText().trim();
+
+        // Kiểm tra dữ liệu bắt buộc
+        if (nv.getTenNV().isEmpty() || nv.getMauKhau().isEmpty() || nv.getSoDienThoai().isEmpty()) {
+            MsgBox.warning(this, "Vui lòng nhập đầy đủ thông tin bắt buộc!");
+            return;
+        }
+        if (!isValidPhoneNumberVN(soDienThoai)) {
+            MsgBox.warning(this, "Số điện thoại không hợp lệ.");
+            return;
+        }
+
+        // Kiểm tra định dạng mã nhân viên
+        if (isMaKhachHangInvalid(maNhanVien)) {
+            MsgBox.warning(this, "Định dạng mã nhân viên không hợp lệ.");
+            return;
+        }
+
+        // Kiểm tra mật khẩu
+        if (!kiemTraMatKhau(matKhau)) {
+            MsgBox.warning(this, "Định dạng mật khẩu không hợp lệ.");
+            return;
+        }
+
+        // Kiểm tra xác nhận mật khẩu
+        if (!matKhau.equals(xacNhanMatKhau)) {
+            MsgBox.error(this, "Xác nhận mật khẩu không đúng.");
+            return;
+        }
+        if (buttonGroup1.getSelection() == null) {
+            MsgBox.error(this, "Bạn chưa chọn chức vụ!");
+            return;
+        }
+
         if (!conmfig.equals(nv.getMauKhau())) {
             MsgBox.error(this, "Xác nhận mật khẩu không đúng");
             return;
@@ -707,7 +839,7 @@ public class NhanVien extends javax.swing.JPanel {
                 this.fillTable();
                 this.clearnForm();
                 TabNhanVien.setSelectedIndex(1);
-                MsgBox.alert(this, "Sửa thành công!");
+                MsgBox.alert(this, "Sửa thông tin thành công thành công!");
             } catch (Exception e) {
                 e.printStackTrace();
                 MsgBox.warning(this, "Sửa thất bại!");
@@ -726,7 +858,8 @@ public class NhanVien extends javax.swing.JPanel {
                         nvdao.delete(maNV);
                         this.fillTable();
                         this.clearnForm();
-                        MsgBox.alert(this, "Xóa thành công!");
+                        MsgBox.alert(this, "Xóa thông tin thành công!");
+
                     } catch (Exception e) {
                         e.printStackTrace();
                         MsgBox.error(this, "Xóa thất bại! " + e.getMessage());
@@ -759,6 +892,90 @@ public class NhanVien extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
+
+    private boolean isValidPhoneNumberVN(String phoneNumber) {
+        // Biểu thức chính quy cho số điện thoại Việt Nam
+        String phoneNumberRegex = "^(032|033|034|035|036|037|038|039|096|097|098|086|083|084|085|081|082|088|091|094|070|079|077|076|078|090|093|089|056|058|092|059|099)[0-9]{7}$";
+        return phoneNumber.matches(phoneNumberRegex);
+    }
+
+    private static boolean isMaKhachHangInvalid(String maKhachHang) {
+        // Kiểm tra nếu maKhachHang không đúng định dạng "KH" theo sau là 3 chữ số
+        return maKhachHang != null && !maKhachHang.matches("NV\\d{3}");
+    }
+
+    private boolean isMaNhanVien(String maNV) {
+        List<NhanVienObject> list = nvdao.selectAll();
+        for (NhanVienObject s : list) {
+            if (s.getMaNV().equals(maNV)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isSoDienThoai(String soDienThoai) {
+        List<NhanVienObject> list = nvdao.selectAll();
+        for (NhanVienObject s : list) {
+            if (s.getSoDienThoai().equals(soDienThoai)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean kiemTraMatKhau(String mathau) {
+        String regex = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$";
+        return mathau.matches(regex);
+    }
+
+    public String hasError() {
+        String maNhanVien = txtMaNhanVien.getText().trim();
+        String tenNhanVien = txtTenNhanVien.getText().trim();
+        String matKhau = new String(txtMatKhau.getPassword()).trim();
+        String xacNhanMatKhau = new String(txtXacNhanMatKhau.getPassword()).trim();
+        String soDienThoai = txtSoDienThoai.getText().trim();
+
+        if (isMaNhanVien(maNhanVien)) {
+            return "Mã nhân viên đã tồn tại vui lòng sử dụng mã khác!";
+        }
+        if (isMaKhachHangInvalid(maNhanVien)) {
+            return "Định dạng mã nhân viên không hợp lệ!";
+        }
+        if (maNhanVien.isEmpty() || tenNhanVien.isEmpty() || matKhau.isEmpty() || xacNhanMatKhau.isEmpty() || soDienThoai.isEmpty()) {
+            return "Vui lòng nhập đầy đủ thông tin."; // Có lỗi
+        }
+        if (!kiemTraMatKhau(matKhau) || !kiemTraMatKhau(xacNhanMatKhau)) {
+            return "Mật khẩu không đúng định dạng!";
+        }
+        if (!matKhau.equals(xacNhanMatKhau)) {
+            return "Mật khẩu và xác nhận mật khẩu không khớp."; // Có lỗi
+        }
+
+        if (!xacNhanMatKhau.equals(matKhau)) {
+            return "Xác nhận mật khẩu không khớp với mật khẩu."; // Có lỗi
+        }
+
+        if (!isValidPhoneNumberVN(soDienThoai)) {
+            return "Số điện thoại không hợp lệ";
+        }
+
+        if (isSoDienThoai(soDienThoai)) {
+            return "Số điện thoại đã được đăng ký!";
+        }
+
+        if (lblAnhDaiDien.getIcon() == null) {
+            return "Vui lòng chọn ảnh đại diện!"; // Có lỗi
+        }
+
+        if (buttonGroup1.getSelection() == null) {
+            return "Vui lòng chọn vai trò!"; // Có lỗi
+        }
+
+        return null; // Không có lỗi
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.quanlyquananvat.chucNangGiaoDien.TabbedPaneCustom TabNhanVien;
     private com.quanlyquananvat.chucNangGiaoDien.Border_panel border_panel1;
@@ -779,8 +996,12 @@ public class NhanVien extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblAnhDaiDien;
     private javax.swing.JLabel lblSoTrang;
