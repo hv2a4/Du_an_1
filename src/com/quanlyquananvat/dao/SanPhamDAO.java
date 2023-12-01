@@ -78,4 +78,10 @@ public class SanPhamDAO extends DAO<SanPhamObject, String> {
     public List<SanPhamObject> select_all_sp(String tenSP) {
         return selectBySQL(TenSanPham, tenSP);
     }
+
+    public SanPhamObject selectSanPhamById(String maSP) {
+        List<SanPhamObject> list = selectBySQL("SELECT * FROM sanpham WHERE MaSP=?", maSP);
+        return list.isEmpty() ? null : list.get(0);
+    }
+
 }

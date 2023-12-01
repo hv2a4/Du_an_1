@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.quanlyquananvat.dao;
 
 import com.quanlyquananvat.Object.KhachHangObject;
@@ -19,6 +15,7 @@ public class KhachHangDAO extends DAO<KhachHangObject, String> {
     final String Select_all_sql = "SELECT * FROM KhachHang";
     final String Select_ById_sql = "SELECT * FROM KhachHang WHERE MaKH=?";
     final String Search_name = "select * from KhachHang where TenKH like N'%' + ? + '%'";
+    final String select_MaKH = "select MaKH  from KhachHang where TenKH like N'%' + ? + '%'";
 
     @Override
     public void insert(KhachHangObject entiTy) {
@@ -80,5 +77,16 @@ public class KhachHangDAO extends DAO<KhachHangObject, String> {
         return selectBySQL(Search_name, name);
     }
 
-    
+    public String select_MaKH(String tenKhachHang) {
+        try {
+            ResultSet rs = JdbcHelper.query(select_MaKH, tenKhachHang);
+            if (rs.next()) {
+                return rs.getString("MaKH");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
 }

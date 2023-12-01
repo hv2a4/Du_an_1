@@ -87,5 +87,13 @@ public class HoaDonChiTietDAO extends DAO<HoaDonChiTietObject, Integer> {
         }
         return 0; // hoặc giá trị mặc định khác tùy vào logic của bạn
     }
-    
+
+    public HoaDonChiTietObject select_HoaDonChiTietObject(int maHDCT) {
+        List<HoaDonChiTietObject> list = selectBySQL("select * from HoaDonChiTiet where MaHDCT = ?", maHDCT);
+        if (!list.isEmpty()) {
+            return list.get(0);
+        } else {
+            return null; // hoặc giá trị mặc định phù hợp với ứng dụng của bạn
+        }
+    }
 }

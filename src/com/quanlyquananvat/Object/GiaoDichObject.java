@@ -5,6 +5,15 @@ public class GiaoDichObject {
     public static String selectValue;
     public static int maHD;
     public static String maKH;
+    public static double giaoHangNhanh;
+
+    public static double getGiaoHangNhanh() {
+        return giaoHangNhanh;
+    }
+
+    public static void setGiaoHangNhanh(double value) {
+        giaoHangNhanh = value;
+    }
 
     public static String getMaKH() {
         return maKH;

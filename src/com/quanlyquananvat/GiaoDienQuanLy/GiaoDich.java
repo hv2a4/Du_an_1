@@ -3,6 +3,7 @@ package com.quanlyquananvat.GiaoDienQuanLy;
 import com.quanlyquananvat.Object.GiaoDichObject;
 import com.quanlyquananvat.Object.HoaDonChiTietObject;
 import com.quanlyquananvat.Object.HoaDonObject;
+import com.quanlyquananvat.Object.HuyDonObject;
 import com.quanlyquananvat.Object.InHoaDonObject;
 import com.quanlyquananvat.Object.KhachHangObject;
 import com.quanlyquananvat.Object.LoaiSanPhamObject;
@@ -91,7 +92,7 @@ public class GiaoDich extends javax.swing.JPanel {
         capNhatComboBox();
         txtPhiGiaoNhanh.setEnabled(false);
         txtTongTien.setEnabled(false);
-        txtKhachHang.setEnabled(false);
+//        txtKhachHang.setEnabled(false);
         txtMaNhanVien1.setEnabled(false);
         txtMaHoaDon.setEnabled(false);
         fillTableHoaDon();
@@ -106,12 +107,16 @@ public class GiaoDich extends javax.swing.JPanel {
             for (HoaDonChiTietObject modelHD : list) {
                 tongtien += modelHD.getTongTien();
                 model.addRow(new Object[]{
+                    modelHD.getMaHoaDonChiTiet(),
                     modelHD.getMaSanPham(),
                     modelHD.getTenSP(),
                     modelHD.getSoLuong(),
                     modelHD.getGia(),
-                    modelHD.getTongTien(),});
+                    NumberFormatter.formatCurrency(modelHD.getTongTien())});
                 txtTongTien.setText(tongtien + "");
+                HuyDonObject.setMaSP(modelHD.getMaSanPham());
+                HuyDonObject.setSoLuong(modelHD.getSoLuong());
+                HuyDonObject.setMaHDCT(modelHD.getMaHoaDonChiTiet());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -191,6 +196,8 @@ public class GiaoDich extends javax.swing.JPanel {
         jMenuItem5 = new javax.swing.JMenuItem();
         jPopupMenu3 = new javax.swing.JPopupMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jPopupMenu5 = new javax.swing.JPopupMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         tabbedPaneCustom1 = new com.quanlyquananvat.chucNangGiaoDien.TabbedPaneCustom();
@@ -300,6 +307,9 @@ public class GiaoDich extends javax.swing.JPanel {
         });
 
         jMenuItem6.setText("jMenuItem6");
+
+        jMenuItem7.setText("jMenuItem7");
+        jPopupMenu5.add(jMenuItem7);
 
         jPanel1.setBackground(new java.awt.Color(242, 242, 242));
 
@@ -517,18 +527,17 @@ public class GiaoDich extends javax.swing.JPanel {
                                 .addGroup(border_panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel19)
                                     .addComponent(ckeGiaoNhanh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 54, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
             .addGroup(border_panel2Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addContainerGap(45, Short.MAX_VALUE)
                 .addComponent(btnTaoDon, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHuyDon, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnInDon, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 53, Short.MAX_VALUE))
+                .addComponent(btnInDon, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         border_panel2Layout.setVerticalGroup(
             border_panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -584,11 +593,11 @@ public class GiaoDich extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá", "Tổng tiền"
+                "Mã HDCT ", "Mã sản phẩm", "Tên SP", "Số lượng", "Giá", "Tổng tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true, true
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -657,8 +666,8 @@ public class GiaoDich extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addGap(0, 166, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(border_panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jScrollPane4)
@@ -911,15 +920,48 @@ public class GiaoDich extends javax.swing.JPanel {
 
     private void btnHuyDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyDonActionPerformed
         huyDon();
-
     }//GEN-LAST:event_btnHuyDonActionPerformed
+
     private void huyDon() {
-        int maHD = Integer.parseInt(txtMaHoaDon.getText());
+        String maHDText = txtMaHoaDon.getText().trim();
+
+        // Kiểm tra xem mã hóa đơn có được nhập hay không
+        if (maHDText.isEmpty()) {
+            MsgBox.warning(this, "Vui lòng nhập mã hóa đơn!");
+            return; // Dừng hàm nếu không có mã hóa đơn
+        }
+
         try {
+            int maHD = Integer.parseInt(maHDText);
+
+            // Lấy thông tin sản phẩm từ đối tượng HuyDonObject
+            String maSp = HuyDonObject.getMaSP();
+            int soLuongHuy = HuyDonObject.getSoLuong();
+
+            // Lấy thông tin sản phẩm từ CSDL
+            SanPhamObject sp1 = spdao.selectSanPhamById(maSp);
+
+            // Kiểm tra xem sản phẩm có tồn tại không
+            if (sp1 == null) {
+                MsgBox.warning(this, "Sản phẩm không tồn tại!");
+                return;
+            }
+
+            // Thực hiện xóa đơn
             hddao.delete(maHD);
+
+            // Cập nhật số lượng của sản phẩm
+            sp1.setSoLuong(sp1.getSoLuong() + soLuongHuy);
+            spdao.update(sp1);
+
+            // Cập nhật bảng hóa đơn
             this.fillTableHoaDon();
             this.clearnForm();
+            this.fillTableSanPham();
             MsgBox.alert(this, "Hủy đơn thành công!");
+        } catch (NumberFormatException e) {
+            // Xử lý khi không thể chuyển đổi thành số
+            MsgBox.warning(this, "Mã hóa đơn không hợp lệ!");
         } catch (Exception e) {
             e.printStackTrace();
             MsgBox.warning(this, "Lỗi truy vấn dữ liệu!");
@@ -935,6 +977,8 @@ public class GiaoDich extends javax.swing.JPanel {
         ckeGiaoNhanh.setSelected(false);
         txtTongTien.setText("");
         cboDiaChi1.setSelectedIndex(0);
+        DefaultTableModel model = (DefaultTableModel) tblHoaDonChiTiet.getModel();
+        model.setRowCount(0);
     }
     private void tblHoaDonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMousePressed
         if (evt.getClickCount() == 2) {
@@ -947,13 +991,14 @@ public class GiaoDich extends javax.swing.JPanel {
     }//GEN-LAST:event_btnInDonActionPerformed
 
     private void jMenuItem3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem3MouseClicked
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jMenuItem3MouseClicked
 
     private void tblHoaDonChiTietMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonChiTietMouseClicked
         if (SwingUtilities.isRightMouseButton(evt)) {
             JPopupMenu popupMenu = new JPopupMenu();
             JMenuItem menuItem = new JMenuItem("Xen thông tin chi tiết");
+            JMenuItem menuItem1 = new JMenuItem("Xóa sản phẩm đã thêm");
             menuItem.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -962,12 +1007,78 @@ public class GiaoDich extends javax.swing.JPanel {
 
                 }
             });
+            menuItem1.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Lấy hàng được chọn
+                    int selectedRow = tblHoaDonChiTiet.getSelectedRow();
+                    if (selectedRow != -1) {
+                        maHDCT = (int) tblHoaDonChiTiet.getValueAt(selectedRow, 0); 
+                        // Gọi hàm xóa hóa đơn
+                        xoaHoaDon();
+                    } else {
+                        MsgBox.warning(GiaoDich.this, "Vui lòng chọn hóa đơn chi tiết cần xóa!");
+                    }
+                }
+            }
+            );
+
             popupMenu.add(menuItem);
+            popupMenu.add(menuItem1);
             popupMenu.show(tblHoaDonChiTiet, evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_tblHoaDonChiTietMouseClicked
+    int maHDCT = 0; // Đảm bảo khởi tạo giá trị ban đầu
+
+    public void xoaHoaDon() {
+        // Kiểm tra xem đã chọn hóa đơn chi tiết chưa
+        if (maHDCT == 0) {
+            MsgBox.warning(this, "Vui lòng chọn hóa đơn chi tiết cần xóa!");
+            return;
+        }
+
+        try {
+            String maSp = HuyDonObject.getMaSP();
+            int soLuongHuy = HuyDonObject.getSoLuong();
+
+            // Lấy thông tin hóa đơn chi tiết từ CSDL
+            HoaDonChiTietObject hdct = hdctdao.select_HoaDonChiTietObject(maHDCT);
+
+            // Kiểm tra xem hóa đơn chi tiết có tồn tại không
+            if (hdct == null) {
+                MsgBox.warning(this, "Hóa đơn chi tiết không tồn tại!");
+                return;
+            }
+
+            // Lấy thông tin sản phẩm từ hóa đơn chi tiết
+            SanPhamObject sp1 = spdao.selectSanPhamById(hdct.getMaSanPham());
+           
+            // Kiểm tra xem sản phẩm có tồn tại không
+            if (sp1 == null) {
+                MsgBox.warning(this, "Sản phẩm không tồn tại!");
+                return;
+            }
+
+            // Cập nhật số lượng của sản phẩm
+            sp1.setSoLuong(sp1.getSoLuong() + soLuongHuy);
+           
+            spdao.update(sp1);
+            this.fillTableSanPham();
+            // Xóa hóa đơn chi tiết
+            hdctdao.delete(maHDCT);
+            // Xóa thành công, cập nhật bảng hóa đơn chi tiết
+            this.fillTableHoaDonChiTiet(Integer.parseInt(txtMaHoaDon.getText()));
+            MsgBox.alert(this, "Xóa hóa đơn chi tiết thành công!");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            MsgBox.error(this, "Lỗi truy vấn dữ liệu!");
+        }
+    }
+
 
     private void jMenuItem5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem5MouseClicked
+
 
     }//GEN-LAST:event_jMenuItem5MouseClicked
 
@@ -980,7 +1091,7 @@ public class GiaoDich extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTongTienKeyReleased
 
     private void tblHoaDonChiTietMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonChiTietMousePressed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_tblHoaDonChiTietMousePressed
     public int selectedMaHD = -1;
     public String selectTenKH = "";
@@ -1008,7 +1119,7 @@ public class GiaoDich extends javax.swing.JPanel {
                     selectedMaHD = (int) tblHoaDon.getValueAt(row, 0);
                     GiaoDichObject.setMaHD(selectedMaHD);
                     selectTenKH = (String) tblHoaDon.getValueAt(row, 2);
-                    GiaoDichObject.setMaKH(selectTenKH);
+                    GiaoDichObject.setMaKH(khdao.select_MaKH(selectTenKH));
                 }
             }
         });
@@ -1036,16 +1147,18 @@ public class GiaoDich extends javax.swing.JPanel {
     }
 
     public void thanhToan() {
+        int diaChi = cboDiaChi1.getSelectedIndex();
+        if (diaChi == 0) {
+            MsgBox.warning(this, "Vui lòng chọn địa chỉ để thực hiện thanh toán!");
+            return;
+        }
         try {
             int maHD = Integer.parseInt(txtMaHoaDon.getText());
             HoaDonObject hd = getHoaDon();
             hd.setMaHD(maHD);
-            System.out.println(hd.getMaKH());
-            System.out.println(hd.getMaHD());
-            System.out.println(hd.getDiaChi());
-            System.out.println(hd.getPhiGiaoNhanh());
             hddao.update(hd);
             this.fillTableHoaDon();
+            this.clearnForm();
             MsgBox.alert(this, "Thanh toán thành công !");
         } catch (Exception e) {
             e.printStackTrace();
@@ -1059,54 +1172,62 @@ public class GiaoDich extends javax.swing.JPanel {
                 MsgBox.warning(this, "Vui lòng tạo hóa đơn trước khi thêm sản phẩm");
                 return;
             }
+            // Nhập số lượng từ người dùng
             String soLuongStr = JOptionPane.showInputDialog(this, "Nhập số lượng!");
 
+            // Kiểm tra xem người dùng đã nhập hay chưa
             if (soLuongStr == null || soLuongStr.trim().isEmpty()) {
-                MsgBox.warning(this, "Vui lòng nhập số lượng");
                 return;
             }
-
-            int soLuong;
+            int soLuong = 0;
             try {
                 soLuong = Integer.parseInt(soLuongStr);
+
+                // Kiểm tra xem số lượng có là số nguyên dương hay không
+                if (soLuong <= 0) {
+                    MsgBox.alert(this, "Số lượng phải là một số nguyên dương");
+                    return;
+                }
+
+                // Lấy thông tin sản phẩm từ dòng đã chọn
+                String maSP = (String) tblSanPham.getValueAt(row, 0);
+                String tenSP = (String) tblSanPham.getValueAt(row, 1);
+                double giaSP = (double) tblSanPham.getValueAt(row, 3);
+                int soLuongSP = (int) tblSanPham.getValueAt(row, 2);
+
+                // Kiểm tra xem số lượng có đủ để bán không
+                if (soLuong > soLuongSP) {
+                    MsgBox.alert(this, "Số lượng không đủ để bán");
+                    return;
+                }
+
+                // Lấy thông tin sản phẩm từ cơ sở dữ liệu
+                SanPhamObject sp = spdao.selectById(maSP);
+
+                // Cập nhật số lượng của sản phẩm trong cơ sở dữ liệu
+                if (sp != null) {
+                    sp.setSoLuong(soLuongSP - soLuong);
+                    spdao.update(sp);
+
+                    // Tạo đối tượng HoaDonChiTietObject và thêm vào cơ sở dữ liệu
+                    HoaDonChiTietObject hdct = new HoaDonChiTietObject();
+                    hdct.setMaHoaDon(Integer.parseInt(txtMaHoaDon.getText()));
+                    hdct.setMaSanPham(maSP);
+                    hdct.setGia(giaSP);
+                    hdct.setTenSP(tenSP);
+                    hdct.setSoLuong(soLuong);
+                    hdct.setTongTien(soLuong * giaSP);
+                    hdctdao.insert(hdct);
+
+                    // Cập nhật giao diện
+                    tabbedPaneCustom1.setSelectedIndex(0);
+                    this.fillTableHoaDonChiTiet(Integer.parseInt(txtMaHoaDon.getText()));
+                    this.fillTableSanPham();
+                } else {
+                    MsgBox.alert(this, "Không tìm thấy sản phẩm trong cơ sở dữ liệu");
+                }
             } catch (NumberFormatException ex) {
                 MsgBox.alert(this, "Số lượng phải là một số nguyên");
-                return;
-            }
-
-            if (soLuong <= 0) {
-                MsgBox.alert(this, "Số lượng phải là một số nguyên dương");
-                return;
-            }
-
-            String maSP = (String) tblSanPham.getValueAt(row, 0);
-            String tenSP = (String) tblSanPham.getValueAt(row, 1);
-            double giaSP = (double) tblSanPham.getValueAt(row, 3);
-            double tongTien = soLuong * giaSP;
-            int soLuongSP = (int) tblSanPham.getValueAt(row, 2);
-
-            if (soLuong > soLuongSP) {
-                MsgBox.alert(this, "Số lượng không đủ để bán");
-                return;
-            }
-
-            SanPhamObject sp = spdao.selectById(maSP);
-            sp.setSoLuong(soLuongSP - soLuong);
-            InHoaDonObject.setSoLuong(soLuong);
-            spdao.update(sp);
-
-            if (sp != null) {
-                HoaDonChiTietObject hdct = new HoaDonChiTietObject();
-                hdct.setMaHoaDon(Integer.parseInt(txtMaHoaDon.getText()));
-                hdct.setMaSanPham(maSP);
-                hdct.setGia(giaSP);
-                hdct.setTenSP(tenSP);
-                hdct.setSoLuong(soLuong);
-                hdct.setTongTien(tongTien);
-                hdctdao.insert(hdct);
-                tabbedPaneCustom1.setSelectedIndex(0);
-                this.fillTableHoaDonChiTiet(Integer.parseInt(txtMaHoaDon.getText()));
-                this.fillTableSanPham();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1260,6 +1381,7 @@ public class GiaoDich extends javax.swing.JPanel {
         // Nếu chọn giao nhanh, cộng thêm 20 vào tổng tiền
         if (ckeGiaoNhanh.isSelected()) {
             tongTien += 20;
+            GiaoDichObject.setGiaoHangNhanh(tongTien);
         }
 
         // Tính tổng tiền từ tất cả các HoaDonChiTietObject trong danh sách
@@ -1271,7 +1393,7 @@ public class GiaoDich extends javax.swing.JPanel {
         txtPhiGiaoNhanh.setText(formattedPhiGiaoNhanh);
         double tongTen2 = 0;
         for (int i = 0; i < tblHoaDonChiTiet.getRowCount(); i++) {
-            tongTen2 += Double.parseDouble(tblHoaDonChiTiet.getValueAt(i, 4).toString());
+            tongTen2 += Double.parseDouble(NumberFormatter.replaceCommaWithDot(tblHoaDonChiTiet.getValueAt(i, 4).toString()));
 
         }
         System.out.println("" + tongTen2);
@@ -1319,12 +1441,14 @@ public class GiaoDich extends javax.swing.JPanel {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JPopupMenu jPopupMenu3;
     private javax.swing.JPopupMenu jPopupMenu4;
+    private javax.swing.JPopupMenu jPopupMenu5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;

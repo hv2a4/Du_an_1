@@ -3,6 +3,7 @@ package com.quanlyquananvat.GiaoDienQuanLy;
 import com.quanlyquananvat.Object.KhachHangObject;
 import com.quanlyquananvat.Object.LoaiSanPhamObject;
 import com.quanlyquananvat.Object.SanPhamObject;
+import com.quanlyquananvat.ThuVienTienIch.Auth;
 import com.quanlyquananvat.ThuVienTienIch.MsgBox;
 import com.quanlyquananvat.ThuVienTienIch.NumberFormatter;
 import com.quanlyquananvat.ThuVienTienIch.Ximge;
@@ -288,24 +289,29 @@ public class SanPham extends javax.swing.JPanel {
     }
 
     public void delete() {
-        int row = tblSanPham.getSelectedRow();
-        if (row < 0) {
-            MsgBox.warning(this, "Vui lòng chọn dữ liệu để xóa!");
-            return;
-        }
-        String makh = txtMaSanPhaam.getText();
-        try {
-            int xoa = JOptionPane.showConfirmDialog(this, "Bạn có chắc chán muốn xóa khách hàng " + makh + " không", "Xóa khách hàng", JOptionPane.YES_NO_OPTION);
-            if (xoa == JOptionPane.YES_OPTION) {
-                spdao.delete(makh);
-                this.fillTable();
-                this.clearnForm();
-                MsgBox.alert(this, "Xóa thông tin thành công!");
+        if (!Auth.isManager()) {
+            MsgBox.error(this, "Bạn không có quyền để sử dụng chức năng này!");
+        } else {
+            int row = tblSanPham.getSelectedRow();
+            if (row < 0) {
+                MsgBox.warning(this, "Vui lòng chọn dữ liệu để xóa!");
+                return;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            MsgBox.error(this, "Xóa thông tin thất bại!!");
+            String makh = txtMaSanPhaam.getText();
+            try {
+                int xoa = JOptionPane.showConfirmDialog(this, "Bạn có chắc chán muốn xóa khách hàng " + makh + " không", "Xóa khách hàng", JOptionPane.YES_NO_OPTION);
+                if (xoa == JOptionPane.YES_OPTION) {
+                    spdao.delete(makh);
+                    this.fillTable();
+                    this.clearnForm();
+                    MsgBox.alert(this, "Xóa thông tin thành công!");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                MsgBox.error(this, "Xóa thông tin thất bại!!");
+            }
         }
+
     }
 
     public void tim() {
@@ -855,7 +861,7 @@ public class SanPham extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(118, Short.MAX_VALUE)
+                .addContainerGap(98, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)

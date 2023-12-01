@@ -91,10 +91,11 @@ ON DELETE NO ACTION;
 
 -- Thêm khóa ngoại với UPDATE CASCADE và DELETE NO ACTION cho bảng HoaDonChiTiet
 ALTER TABLE HoaDonChiTiet
-ADD CONSTRAINT FK_HoaDon_HoaDonChiTiet FOREIGN KEY (MaHoaDon)
-REFERENCES HoaDon (MaHD)
-ON UPDATE CASCADE
-ON DELETE NO ACTION;
+ADD CONSTRAINT FK_HoaDon_HoaDonChiTiet
+FOREIGN KEY (MaHoaDon)
+REFERENCES HoaDon(MaHD)
+ON DELETE CASCADE;
+
 
 ALTER TABLE HoaDonChiTiet
 ADD CONSTRAINT FK_SanPham_HoaDonChiTiet FOREIGN KEY (MaSP)
@@ -240,23 +241,23 @@ VALUES
 ('SP010', N'Hamburger', 15, 5.0, '2019-12-05', N'Bánh hamburger thịt bò', 'hamburger.jpg', 'LSP004'),
 ('SP011', N'Sinh tố dâu', 28, 4.2, '2023-02-18', N'Sinh tố dâu tươi', 'sinhtodau.jpg', 'LSP002');
 
-create or alter proc SP_SelectHD (@MaHD int)
+create or alter proc SP_SelectHD1 (@MaHD int)
 as
-begin
+begin 
 select HoaDon.MaHD as MaHD,
 NgayTao as ngayTao,
 PhiGiaoNhanh as phiVanChuyen,
 TenSanPham as tenSanPham,
 SoLuong as soLuong,
 Gia as giaSP,
-HoaDonChiTiet.TongTien as tongTien
+hoadon.TongTien as tongTien
 from HoaDon 
 inner join HoaDonChiTiet on HoaDon.MaHD = HoaDonChiTiet.MaHoaDon 
 where hoadon.MaHD = @MaHD
 end
 
 go
-create or alter proc SP_DoanhThu(@Nam nvarchar(20))
+create or alter proc SP_DoanhThu1(@Nam nvarchar(20))
 as
 begin 
 select 
@@ -273,3 +274,14 @@ where YEAR(NgayTao) = @Nam
 Group by HoaDonChiTiet.TenSanPham
 end
 
+go
+create or alter proc SP_TongDoanhThuSanPham1
+as
+begin
+	select 
+	LoaiSanPham.TenLoaiSanPham as tenLoaiSP,
+	count(SanPham.SoLuong) as tongSoLuong
+	from SanPham
+	inner join LoaiSanPham on SanPham.MaLoaiSanPham = LoaiSanPham.MaLoaiSanPham
+	group by LoaiSanPham.TenLoaiSanPham
+end

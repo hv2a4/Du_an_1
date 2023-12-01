@@ -30,7 +30,7 @@ public class InHoaDonDAO {
 
     public List<Object[]> getThongTinSanPham(Integer maHD) {
         String sql = "{CALL SP_SelectHD(?)}";
-        String col[] = {"MaHD", "ngayTao", "phiVanChuyen", "tenSanPham", "soLuong","giaSP", "tongTien"};
+        String col[] = {"MaHD", "ngayTao", "phiVanChuyen", "tenSanPham", "soLuong", "giaSP", "tongTien"};
         return getListOfArray(sql, col, maHD);
     }
 }

@@ -17,15 +17,10 @@ import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-/**
- *
- * @author pc
- */
 public class Ximge {
 
     public static Image getAppIcon() {
         File f = new File("src\\Logo\\image 82.png");
-//        URL url = Ximge.class.getResource();
         return new ImageIcon(f.getAbsolutePath()).getImage();
     }
 
@@ -50,5 +45,5 @@ public class Ximge {
         Image scaledImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         return new ImageIcon(scaledImg);
     }
-    
+
 }

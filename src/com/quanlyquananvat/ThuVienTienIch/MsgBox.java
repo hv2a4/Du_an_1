@@ -1,16 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.quanlyquananvat.ThuVienTienIch;
 
 import java.awt.Component;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author pc
- */
 public class MsgBox {
 
     /*
@@ -18,7 +10,6 @@ public class MsgBox {
     parent là cửa sổ chứa thông báo 
     message là thông báo
      */
-
     public static void alert(Component parent, String message) {
         JOptionPane.showMessageDialog(parent, message, "Hệ thống quản lý đào tạo", JOptionPane.INFORMATION_MESSAGE);
     }

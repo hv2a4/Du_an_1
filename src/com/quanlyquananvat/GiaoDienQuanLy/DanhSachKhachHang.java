@@ -159,6 +159,7 @@ public class DanhSachKhachHang extends javax.swing.JDialog {
 
     public void add() {
         if (row != -1 && row < tblKhachHang.getRowCount()) {
+            int selectRow = tblKhachHang.getSelectedRow();
             GiaoDichObject.setSelectValue((String) tblKhachHang.getValueAt(row, 1));
             this.dispose();
         } else {

@@ -56,7 +56,7 @@
           <Group type="102" alignment="1" attributes="0">
               <Component id="jLabel1" min="-2" pref="81" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="TabNhanVien" max="32767" attributes="0"/>
+              <Component id="TabNhanVien" pref="533" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -201,7 +201,7 @@
                           </Group>
                           <Component id="border_panel1" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="83" max="32767" attributes="0"/>
+                      <EmptySpace pref="65" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnThem" alignment="3" min="-2" pref="55" max="-2" attributes="0"/>
                           <Component id="btnXoa" alignment="3" min="-2" pref="55" max="-2" attributes="0"/>
@@ -568,7 +568,7 @@
                           <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtTimKiem" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="24" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="lblSoTrang" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="275" max="-2" attributes="0"/>

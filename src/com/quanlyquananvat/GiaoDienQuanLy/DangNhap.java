@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package com.quanlyquananvat.GiaoDienQuanLy;
 
 import com.quanlyquananvat.Object.NhanVienObject;
@@ -14,15 +10,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 
-/**
- *
- * @author pc
- */
 public class DangNhap extends javax.swing.JDialog {
 
-    /**
-     * Creates new form DangNhap
-     */
     public DangNhap(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -32,12 +21,12 @@ public class DangNhap extends javax.swing.JDialog {
         txtTaiKhoan.setText("NV001");
         txtMatKhau.setText("password123");
 //        txtTaiKhoan.setText("NV002");
-//        txtMatKhau.setText("pass456");
-        
+//        txtMatKhau.setText("Pass12345678");
+
     }
-    
+
     NhanVienDAO entity = new NhanVienDAO();
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -316,7 +305,7 @@ public class DangNhap extends javax.swing.JDialog {
             MsgBox.alert(this, "Vui lòng nhập tên đăng nhập và mật khẩu");
             return;
         }
-        
+
         NhanVienObject nv = entity.selectById(maNV);
         if (nv == null) {
             MsgBox.alert(this, "Sai tên đăng nhập");
@@ -331,7 +320,7 @@ public class DangNhap extends javax.swing.JDialog {
             }
         }
     }
-    
+
     public void init() {
         if (ckbXemPass.isSelected()) {
             txtMatKhau.setEchoChar((char) 0);

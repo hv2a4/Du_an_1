@@ -38,6 +38,11 @@ public class ThongKe extends javax.swing.JPanel {
         tblDoanhThu.getTableHeader().setBackground(new Color(0, 102, 255));
         tblDoanhThu.getTableHeader().setForeground(new Color(0, 0, 0));
         tblDoanhThu.setRowHeight(25);
+        tblTKSP.getTableHeader().setFont(new Font("Arial", Font.BOLD, 13));
+        tblTKSP.getTableHeader().setOpaque(false);
+        tblTKSP.getTableHeader().setBackground(new Color(0, 102, 255));
+        tblTKSP.getTableHeader().setForeground(new Color(0, 0, 0));
+        tblTKSP.setRowHeight(25);
         fillComBoBoxDoanhThu();
     }
 
@@ -95,6 +100,8 @@ public class ThongKe extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         cboDoanhThu = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblTKSP = new javax.swing.JTable();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -182,18 +189,43 @@ public class ThongKe extends javax.swing.JPanel {
 
         tabbedPaneCustom1.addTab("Doanh thu", jPanel2);
 
+        jPanel3.setBackground(new java.awt.Color(242, 242, 242));
+
+        tblTKSP.setBackground(new java.awt.Color(242, 242, 242));
+        tblTKSP.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Tên loại sản phẩm", "Tên sản phẩm", "Số lượng bán", "Số lượng tồn kho", "Doanh thu", "Số lượng sản phẩm"
+            }
+        ));
+        tblTKSP.setRowHeight(30);
+        tblTKSP.getTableHeader().setReorderingAllowed(false);
+        tblTKSP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblTKSPMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblTKSP);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 927, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 927, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 518, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE))
         );
 
-        tabbedPaneCustom1.addTab("tab2", jPanel3);
+        tabbedPaneCustom1.addTab("Sản phẩm", jPanel3);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -252,6 +284,10 @@ public class ThongKe extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tblDoanhThuMouseClicked
 
+    private void tblTKSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTKSPMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblTKSPMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cboDoanhThu;
     private javax.swing.JLabel jLabel1;
@@ -262,8 +298,10 @@ public class ThongKe extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private swing.shadow.ShadowRenderer shadowRenderer1;
     private com.quanlyquananvat.chucNangGiaoDien.TabbedPaneCustom tabbedPaneCustom1;
     private javax.swing.JTable tblDoanhThu;
+    private javax.swing.JTable tblTKSP;
     // End of variables declaration//GEN-END:variables
 }
