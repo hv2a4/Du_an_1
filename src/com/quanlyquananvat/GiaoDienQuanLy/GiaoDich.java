@@ -102,22 +102,25 @@ public class GiaoDich extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblHoaDonChiTiet.getModel();
         model.setRowCount(0);
         try {
-            double tongtien = 0;
+            double tongtienHD = 0;
             List<HoaDonChiTietObject> list = hdctdao.selectByMaHD(maHD);
             for (HoaDonChiTietObject modelHD : list) {
-                tongtien += modelHD.getTongTien();
+                tongtienHD += modelHD.getTongTien();
                 model.addRow(new Object[]{
                     modelHD.getMaHoaDonChiTiet(),
                     modelHD.getMaSanPham(),
                     modelHD.getTenSP(),
                     modelHD.getSoLuong(),
                     modelHD.getGia(),
-                    NumberFormatter.formatCurrency(modelHD.getTongTien())});
-                txtTongTien.setText(tongtien + "");
+                    NumberFormatter.formatCurrency(modelHD.getTongTien())
+                });
                 HuyDonObject.setMaSP(modelHD.getMaSanPham());
                 HuyDonObject.setSoLuong(modelHD.getSoLuong());
                 HuyDonObject.setMaHDCT(modelHD.getMaHoaDonChiTiet());
             }
+            // Đặt giá trị tổng tiền sau khi đã thêm tất cả dòng
+            txtTongTien.setText(NumberFormatter.formatCurrency(tongtienHD));
+            GiaoDichObject.setTongTien(tongtienHD);
         } catch (Exception e) {
             e.printStackTrace();
             MsgBox.warning(this, "Lỗi truy vấn dữ liệu");
@@ -934,30 +937,51 @@ public class GiaoDich extends javax.swing.JPanel {
         try {
             int maHD = Integer.parseInt(maHDText);
 
-            // Lấy thông tin sản phẩm từ đối tượng HuyDonObject
-            String maSp = HuyDonObject.getMaSP();
-            int soLuongHuy = HuyDonObject.getSoLuong();
+            // Khởi tạo danh sách sản phẩm cần cập nhật
+            List<SanPhamObject> sanPhamCapNhat = new ArrayList<>();
 
-            // Lấy thông tin sản phẩm từ CSDL
-            SanPhamObject sp1 = spdao.selectSanPhamById(maSp);
+            // Thêm sản phẩm cần cập nhật vào danh sách
+            List<HoaDonChiTietObject> list = hdctdao.selectByMaHD(maHD);
+            for (HoaDonChiTietObject modelHD : list) {
+                String maSpHD = modelHD.getMaSanPham();
+                int soLuongHD = modelHD.getSoLuong();
 
-            // Kiểm tra xem sản phẩm có tồn tại không
-            if (sp1 == null) {
-                MsgBox.warning(this, "Sản phẩm không tồn tại!");
-                return;
+                // Kiểm tra xem sản phẩm có tồn tại trong danh sách cần cập nhật không
+                boolean daCoTrongDanhSach = false;
+                for (SanPhamObject sp : sanPhamCapNhat) {
+                    if (sp.getMaSP().equals(maSpHD)) {
+                        sp.setSoLuong(sp.getSoLuong() + soLuongHD);
+                        daCoTrongDanhSach = true;
+                        break;
+                    }
+                }
+
+                // Nếu chưa có trong danh sách, thêm sản phẩm vào danh sách cần cập nhật
+                if (!daCoTrongDanhSach) {
+                    SanPhamObject spHD = spdao.selectSanPhamById(maSpHD);
+                    if (spHD != null) {
+                        spHD.setSoLuong(spHD.getSoLuong() + soLuongHD);
+                        sanPhamCapNhat.add(spHD);
+                    }
+                }
             }
 
             // Thực hiện xóa đơn
             hddao.delete(maHD);
 
-            // Cập nhật số lượng của sản phẩm
-            sp1.setSoLuong(sp1.getSoLuong() + soLuongHuy);
-            spdao.update(sp1);
+            // Duyệt qua danh sách sản phẩm cần cập nhật và thực hiện cập nhật
+            for (SanPhamObject sp : sanPhamCapNhat) {
+                spdao.update(sp);
+            }
 
             // Cập nhật bảng hóa đơn
-            this.fillTableHoaDon();
-            this.clearnForm();
-            this.fillTableSanPham();
+            fillTableHoaDon();
+            // Cập nhật bảng sản phẩm
+            fillTableSanPham();
+
+            // Xóa các thông tin trên form
+            clearnForm();
+
             MsgBox.alert(this, "Hủy đơn thành công!");
         } catch (NumberFormatException e) {
             // Xử lý khi không thể chuyển đổi thành số
@@ -1013,7 +1037,7 @@ public class GiaoDich extends javax.swing.JPanel {
                     // Lấy hàng được chọn
                     int selectedRow = tblHoaDonChiTiet.getSelectedRow();
                     if (selectedRow != -1) {
-                        maHDCT = (int) tblHoaDonChiTiet.getValueAt(selectedRow, 0); 
+                        maHDCT = (int) tblHoaDonChiTiet.getValueAt(selectedRow, 0);
                         // Gọi hàm xóa hóa đơn
                         xoaHoaDon();
                     } else {
@@ -1052,7 +1076,7 @@ public class GiaoDich extends javax.swing.JPanel {
 
             // Lấy thông tin sản phẩm từ hóa đơn chi tiết
             SanPhamObject sp1 = spdao.selectSanPhamById(hdct.getMaSanPham());
-           
+
             // Kiểm tra xem sản phẩm có tồn tại không
             if (sp1 == null) {
                 MsgBox.warning(this, "Sản phẩm không tồn tại!");
@@ -1061,7 +1085,7 @@ public class GiaoDich extends javax.swing.JPanel {
 
             // Cập nhật số lượng của sản phẩm
             sp1.setSoLuong(sp1.getSoLuong() + soLuongHuy);
-           
+
             spdao.update(sp1);
             this.fillTableSanPham();
             // Xóa hóa đơn chi tiết
@@ -1141,12 +1165,19 @@ public class GiaoDich extends javax.swing.JPanel {
         hd.setMaThanhToan(ptttt);
         hd.setDiaChi(cboDiaChi1.getSelectedItem().toString());
         hd.setPhiGiaoNhanh(Double.parseDouble(NumberFormatter.replaceCommaWithDot(txtPhiGiaoNhanh.getText())));
-        hd.setTongTien(Double.parseDouble(txtTongTien.getText()));
+        hd.setTongTien(Double.parseDouble(NumberFormatter.replaceCommaWithDot(txtTongTien.getText())));
         System.out.println(hd.toString());
         return hd;
     }
 
     public void thanhToan() {
+        String maHD1 = txtMaHoaDon.getText();
+        String maNV = txtMaNhanVien1.getText();
+        String maKhachHang = txtKhachHang.getText();
+        if (maHD1.isEmpty() || maNV.isEmpty() || maKhachHang.isEmpty()) {
+            MsgBox.error(this, "Vui lòng tạo hóa đơn trước khi thanh toán!");
+            return;
+        }
         int diaChi = cboDiaChi1.getSelectedIndex();
         if (diaChi == 0) {
             MsgBox.warning(this, "Vui lòng chọn địa chỉ để thực hiện thanh toán!");
@@ -1337,14 +1368,19 @@ public class GiaoDich extends javax.swing.JPanel {
     public void fillTableHoaDon() {
         DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
         List<HoaDonObject> list = hddao.selectAll();
+
         try {
             for (HoaDonObject e : list) {
-
                 String tenPhuongThuc = "";
-                if (e.getMaThanhToan().equalsIgnoreCase("TT001")) {
-                    tenPhuongThuc += "Tiền mặt";
-                } else {
-                    tenPhuongThuc += "Chuyển khoản";
+
+                // Kiểm tra xem e.getMaThanhToan() có null không
+                if (e.getMaThanhToan() != null) {
+                    // Sử dụng equalsIgnoreCase() mà không gặp lỗi
+                    if (e.getMaThanhToan().equalsIgnoreCase("TT001")) {
+                        tenPhuongThuc += "Tiền mặt";
+                    } else {
+                        tenPhuongThuc += "Chuyển khoản";
+                    }
                 }
                 model.addRow(new Object[]{
                     e.getMaHD(),
@@ -1357,7 +1393,7 @@ public class GiaoDich extends javax.swing.JPanel {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            MsgBox.error(this, "Lỗi truy vấn dữ liệu bảng nhân viên!");
+            MsgBox.error(this, "Lỗi truy vấn dữ liệu bảng hóa đơn!");
         }
     }
 
@@ -1391,15 +1427,15 @@ public class GiaoDich extends javax.swing.JPanel {
         String formattedPhiGiaoNhanh = NumberFormatter.formatNumber(phiGiaoNhanh);
 
         txtPhiGiaoNhanh.setText(formattedPhiGiaoNhanh);
+
+        txtTongTien.setText(GiaoDichObject.getTongTien() + "");
         double tongTen2 = 0;
         for (int i = 0; i < tblHoaDonChiTiet.getRowCount(); i++) {
-            tongTen2 += Double.parseDouble(NumberFormatter.replaceCommaWithDot(tblHoaDonChiTiet.getValueAt(i, 4).toString()));
-
+            tongTen2 += Double.parseDouble(NumberFormatter.replaceCommaWithDot(tblHoaDonChiTiet.getValueAt(i, 3).toString()));
         }
-        System.out.println("" + tongTen2);
-        tongTen2 += tongTien + phiGiaoNhanh;
+
         // Hiển thị giá trị tổng tiền hiển thị
-        txtTongTien.setText(String.valueOf(tongTen2));
+        txtTongTien.setText(NumberFormatter.formatCurrency(GiaoDichObject.getTongTien() + phiGiaoNhanh + tongTien));
 
     }
 

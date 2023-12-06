@@ -5,8 +5,8 @@ public class ThongKeDoanhThuLSP extends javax.swing.JDialog {
     public ThongKeDoanhThuLSP(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        QuanLyThongKeControler qltkc = new QuanLyThongKeControler();
-        qltkc.setDataToChar(jPanel2);
+        QuanLyThongKeControler s = new QuanLyThongKeControler();
+        s.setDataToChar(jPanel2);
         setLocationRelativeTo(null);
     }
 

@@ -6,6 +6,15 @@ public class GiaoDichObject {
     public static int maHD;
     public static String maKH;
     public static double giaoHangNhanh;
+    public static double tongTien;
+
+    public static double getTongTien() {
+        return tongTien;
+    }
+
+    public static void setTongTien(double value) {
+        tongTien = value;
+    }
 
     public static double getGiaoHangNhanh() {
         return giaoHangNhanh;

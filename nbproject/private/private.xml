@@ -3,18 +3,23 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/Object/GiaoDichObject.java</file>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/DanhSachKhachHang.java</file>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/QuanLyThongKeControler.java</file>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/LayTenVaSoLuong.java</file>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/dao/InHoaDonDAO.java</file>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/GiaoDich.java</file>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/Object/HuyDonObject.java</file>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/dao/SanPhamDAO.java</file>
+            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/SanPham.java</file>
+            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/dao/ThongKeDao.java</file>
+            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/ThongKeDoanhThuLSP.java</file>
+            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/TienMat.java</file>
             <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/dao/HoaDonChiTietDAO.java</file>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/ThongKe.java</file>
-            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/NhanVien.java</file>
             <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/ChiTietHoaDon.java</file>
+            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/test/LineChartPanel.java</file>
+            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/DoanhThuSanPham.java</file>
+            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/Chuyenkhoan.java</file>
+            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/BieuDoTongDoanhThu.java</file>
+            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/HoaDonKhachHang.java</file>
+            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/GiaoDich.java</file>
+            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/dao/SanPhamDAO.java</file>
+            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/Object/SanPhamTonKho.java</file>
+            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/ThongKe.java</file>
+            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/dao/HoaDonDAO.java</file>
+            <file>file:/D:/FPT%20politechmic/Du_an_1/QuanLy_quan_an_vat/QuanLyDuAn1/src/com/quanlyquananvat/GiaoDienQuanLy/LineChart.java</file>
         </group>
     </open-files>
 </project-private>

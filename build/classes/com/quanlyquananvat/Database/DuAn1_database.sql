@@ -1,4 +1,4 @@
-﻿create database Du_an_1
+﻿	create database Du_an_1
 use Du_an_1
 -- tạo bảng nhân viên
 go
@@ -241,6 +241,7 @@ VALUES
 ('SP010', N'Hamburger', 15, 5.0, '2019-12-05', N'Bánh hamburger thịt bò', 'hamburger.jpg', 'LSP004'),
 ('SP011', N'Sinh tố dâu', 28, 4.2, '2023-02-18', N'Sinh tố dâu tươi', 'sinhtodau.jpg', 'LSP002');
 
+
 create or alter proc SP_SelectHD1 (@MaHD int)
 as
 begin 
@@ -278,10 +279,216 @@ go
 create or alter proc SP_TongDoanhThuSanPham1
 as
 begin
-	select 
-	LoaiSanPham.TenLoaiSanPham as tenLoaiSP,
-	count(SanPham.SoLuong) as tongSoLuong
-	from SanPham
-	inner join LoaiSanPham on SanPham.MaLoaiSanPham = LoaiSanPham.MaLoaiSanPham
-	group by LoaiSanPham.TenLoaiSanPham
+	SELECT 
+	lsp.TenLoaiSanPham AS tenLoai,
+	SUM(hdct.SoLuong) AS TongSoLuongBan
+	FROM HoaDonChiTiet hdct
+	JOIN SanPham sp ON hdct.MaSP = sp.MaSP
+	JOIN LoaiSanPham lsp ON sp.MaLoaiSanPham = lsp.MaLoaiSanPham
+	GROUP BY lsp.TenLoaiSanPham
+	ORDER BY TongSoLuongBan DESC;
 end
+
+go
+create or alter proc sp_tonKho 
+as
+begin 
+SELECT
+    SanPham.TenSP AS TenSanPham,
+    SanPham.SoLuong AS SoLuongTonKho,
+    HoaDonChiTiet.TenSanPham AS TenSanPhamHoaDon,
+    COUNT(*) AS SoLuongBan,
+    SUM(HoaDon.TongTien) AS DoanhThu
+FROM
+    SanPham
+JOIN
+    HoaDonChiTiet ON SanPham.MaSP = HoaDonChiTiet.MaSP
+JOIN
+    HoaDon ON HoaDon.MaHD = HoaDonChiTiet.MaHoaDon
+GROUP BY
+    SanPham.TenSP,
+    SanPham.SoLuong,
+    HoaDonChiTiet.TenSanPham;
+
+end
+
+exec sp_tonKho
+
+create or alter proc sp_tongDoanhThuSanPham
+as
+begin
+    SELECT  
+        SP.TenSP AS tenSP,
+        SUM(HDCT.SoLuong) AS SoLuongBanRa,
+        SP.SoLuong AS SoLuongTonKho,
+        AVG(HDCT.Gia) AS GiaBanTrungBinh,
+        SUM(HDCT.SoLuong * HDCT.Gia) AS TongDoanhThu 
+    FROM SanPham SP
+    INNER JOIN HoaDonChiTiet HDCT 
+        ON SP.MaSP = HDCT.MaSP
+    GROUP BY    
+        SP.TenSP,
+        SP.SoLuong
+end
+
+exec sp_tongDoanhThuSanPham
+
+
+CREATE OR ALTER PROCEDURE ThongKeHoaDon
+AS
+BEGIN
+   SELECT
+    CONVERT(date, HoaDon.NgayTao) AS NgayTao,
+    COUNT(HoaDon.MaHD) AS SoLuongHoaDon,
+    SUM(HoaDon.TongTien) AS TongDoanhThu
+	FROM
+	  HoaDon
+	GROUP BY
+	 CONVERT(date, HoaDon.NgayTao)
+	ORDER BY
+	 CONVERT(date, HoaDon.NgayTao);
+END;
+
+
+exec ThongKeHoaDon
+
+create or alter proc psp_PhuongThucThanhToan_tienMat
+as
+begin
+SELECT PhuongThucThanhToan.TenPTTT AS tenPTTT, 
+COUNT(HoaDon.MaHD) AS SoLuongHoaDon,
+SUM(TongTien) AS TongDoanhThu
+FROM PhuongThucThanhToan
+LEFT JOIN HoaDon ON PhuongThucThanhToan.MaThanhToan = HoaDon.MaThanhToan
+where PhuongThucThanhToan.MaThanhToan = 'TT001'
+GROUP BY PhuongThucThanhToan.TenPTTT;
+end
+
+exec psp_PhuongThucThanhToan_tienMat
+
+create or alter proc psp_PhuongThucThanhToan_ChuyenKhoan
+as
+begin
+SELECT PhuongThucThanhToan.TenPTTT AS tenPTTT, 
+COUNT(HoaDon.MaHD) AS SoLuongHoaDon,
+SUM(TongTien) AS TongDoanhThu
+FROM PhuongThucThanhToan
+LEFT JOIN HoaDon ON PhuongThucThanhToan.MaThanhToan = HoaDon.MaThanhToan
+where PhuongThucThanhToan.MaThanhToan = 'TT002'
+GROUP BY PhuongThucThanhToan.TenPTTT;
+end
+
+exec psp_PhuongThucThanhToan_ChuyenKhoan
+
+create or alter proc sp_tkTienMat
+as
+begin
+SELECT MaNV AS manv,
+MaKH AS makh, 
+COUNT(HoaDon.MaHD) AS SoLuongHoaDon,
+SUM(HoaDon.TongTien) AS TongDoanhThu
+FROM PhuongThucThanhToan
+INNER JOIN HoaDon ON HoaDon.MaThanhToan = PhuongThucThanhToan.MaThanhToan
+INNER JOIN HoaDonChiTiet ON HoaDon.MaHD = HoaDonChiTiet.MaHoaDon
+where PhuongThucThanhToan.MaThanhToan = 'TT001'
+GROUP BY MaNV, MaKH;
+
+end
+
+create or alter proc sp_tkChuyenKhoan
+as
+begin
+SELECT MaNV AS manv,
+MaKH AS makh, 
+COUNT(HoaDon.MaHD) AS SoLuongHoaDon,
+SUM(HoaDon.TongTien) AS TongDoanhThu
+FROM PhuongThucThanhToan
+INNER JOIN HoaDon ON HoaDon.MaThanhToan = PhuongThucThanhToan.MaThanhToan
+INNER JOIN HoaDonChiTiet ON HoaDon.MaHD = HoaDonChiTiet.MaHoaDon
+where PhuongThucThanhToan.MaThanhToan = 'TT002'
+GROUP BY MaNV, MaKH;
+
+end
+
+exec sp_tkChuyenKhoan
+
+create or alter proc sp_hoaDonTheoKhachHangh
+as 
+begin
+SELECT
+    KhachHang.TenKH as tenkhachhang,
+    SanPham.TenSP as tensanpham,
+    COUNT(HoaDon.MaHD) AS SoLuongHoaDon,
+    SUM(HoaDon.TongTien) AS TongDoanhThu
+FROM
+    HoaDon
+INNER JOIN HoaDonChiTiet ON HoaDon.MaHD = HoaDonChiTiet.MaHoaDon
+INNER JOIN KhachHang ON KhachHang.MaKH = HoaDon.MaKH
+INNER JOIN SanPham ON SanPham.MaSP = HoaDonChiTiet.MaSP
+GROUP BY
+    KhachHang.TenKH,
+    SanPham.TenSP;
+
+end
+
+exec sp_hoaDonTheoKhachHangh
+
+create or alter proc sp_doanhThuSanPham
+as
+begin
+SELECT
+    SanPham.TenSP as tensp,
+    COUNT(HoaDon.MaHD) AS SoLuongHoaDon,
+    SUM(HoaDonChiTiet.TongTien) AS TongDoanhThu,
+	AVG(HoaDon.TongTien) as doanhThuTB
+FROM
+    SanPham
+INNER JOIN HoaDonChiTiet ON SanPham.MaSP = HoaDonChiTiet.MaSP
+INNER JOIN HoaDon ON HoaDonChiTiet.MaHoaDon = HoaDon.MaHD
+WHERE
+    HoaDon.MaThanhToan IS NOT NULL
+GROUP BY
+    SanPham.TenSP ;
+
+end
+
+exec sp_doanhThuSanPham
+
+create or alter proc sp_sanPhamTonKho
+as
+begin
+SELECT
+    SanPham.TenSP,
+    SanPham.SoLuong AS SoLuongTonKho,
+    LoaiSanPham.TenLoaiSanPham,
+    SanPham.GiaSP
+FROM
+    SanPham
+INNER JOIN
+    LoaiSanPham ON SanPham.MaLoaiSanPham = LoaiSanPham.MaLoaiSanPham;
+end
+
+exec sp_sanPhamTonKho
+
+-- Create a stored procedure
+CREATE OR ALTER PROCEDURE GetProductSalesInfo
+AS
+BEGIN
+    SELECT 
+        SanPham.TenSP as tenSP,
+        SanPham.SoLuong as soLuong,
+        HoaDon.NgayTao as ngayTao,
+        SUM(HoaDonChiTiet.SoLuong) as SoLuongDaBan
+    FROM 
+        HoaDonChiTiet
+    JOIN 
+        SanPham ON HoaDonChiTiet.MaSP = SanPham.MaSP
+    JOIN 
+        HoaDon ON HoaDonChiTiet.MaHoaDon = HoaDon.MaHD
+    GROUP BY  
+        SanPham.TenSP,
+        HoaDon.NgayTao,
+        SanPham.SoLuong;
+END;
+
+exec GetProductSalesInfo

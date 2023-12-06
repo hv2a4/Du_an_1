@@ -15,10 +15,26 @@ public class HoaDonChiTietDAO extends DAO<HoaDonChiTietObject, Integer> {
     final String Select_all_sql = "SELECT * FROM hoadonchitiet";
     final String Select_ById_sql = "SELECT * FROM hoadonchitiet WHERE MaHDCT=?";
     final String Select_maHD = "select * from HoaDonChiTiet where MaHoaDon like ?";
-
+    // Tổng số lượng sản phẩm đã bán
+    final String tongSLSPBanRa = "SELECT SUM(SoLuong) AS TongSoLuongSanPhamDaBan FROM HoaDonChiTiet;";
+   
     public List<HoaDonChiTietObject> selectByMaHD(int MaHD) {
         return selectBySQL(Select_maHD, MaHD);
     }
+
+    public int getSoLuongDaBan() {
+        try {
+            ResultSet rs = JdbcHelper.query(tongSLSPBanRa);
+            if (rs.next()) {
+                return rs.getInt("TongSoLuongSanPhamDaBan");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+  
 
     @Override
     public void insert(HoaDonChiTietObject entiTy) {

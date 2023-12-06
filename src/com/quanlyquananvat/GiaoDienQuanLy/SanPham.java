@@ -282,10 +282,14 @@ public class SanPham extends javax.swing.JPanel {
     }
 
     private String validateData(SanPhamObject sp) {
-        if (sp.getTenSP().isEmpty() || sp.getSoLuong() < 0 || sp.getGiaSP() < 0 || sp.getNgayNhap() == null) {
-            return "Vui lòng nhập đầy đủ thông tin và đảm bảo số lượng và giá là không âm.";
+        try {
+            if (sp.getTenSP().isEmpty() || sp.getSoLuong() < 0 || sp.getGiaSP() < 0 || sp.getNgayNhap() == null) {
+                return "Vui lòng nhập đầy đủ thông tin và đảm bảo số lượng và giá là không âm.";
+            }
+            return null;
+        } catch (NumberFormatException e) {
+            return "Giá sản phẩm không hợp lệ. Vui lòng nhập một giá trị số hợp lệ.";
         }
-        return null;
     }
 
     public void delete() {

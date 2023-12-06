@@ -14,27 +14,7 @@ public class BieuDoTongDoanhThu extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        fillComboBoxDoanhThu();
-        displayPieChart();
-    }
-
-    public void fillComboBoxDoanhThu() {
-        DefaultComboBoxModel model = (DefaultComboBoxModel) cboDoanhThu.getModel();
-        model.removeAllElements();
-        try {
-            List<Integer> list = hddao.getYear();
-            for (Integer year : list) {
-                model.addElement(year);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            MsgBox.alert(this, "Lỗi truy vấn dữ liệu!");
-        }
-    }
-
-    private void displayPieChart() {
-        Integer nam = (Integer) cboDoanhThu.getSelectedItem();
-        s.hienThiBieuDoHinhTron(jpnTongDoanhThu, cboDoanhThu);
+        s.hienThiBieuDoHinhTron(jpnTongDoanhThu);
     }
 
     @SuppressWarnings("unchecked")
@@ -43,8 +23,6 @@ public class BieuDoTongDoanhThu extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jpnTongDoanhThu = new javax.swing.JPanel();
-        cboDoanhThu = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -54,25 +32,12 @@ public class BieuDoTongDoanhThu extends javax.swing.JDialog {
         jpnTongDoanhThu.setLayout(jpnTongDoanhThuLayout);
         jpnTongDoanhThuLayout.setHorizontalGroup(
             jpnTongDoanhThuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 756, Short.MAX_VALUE)
         );
         jpnTongDoanhThuLayout.setVerticalGroup(
             jpnTongDoanhThuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 407, Short.MAX_VALUE)
+            .addGap(0, 465, Short.MAX_VALUE)
         );
-
-        cboDoanhThu.setBackground(new java.awt.Color(255, 255, 255));
-        cboDoanhThu.setFont(new java.awt.Font("Times New Roman", 1, 13)); // NOI18N
-        cboDoanhThu.setForeground(new java.awt.Color(0, 0, 0));
-        cboDoanhThu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboDoanhThuActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Năm");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -80,22 +45,13 @@ public class BieuDoTongDoanhThu extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jpnTongDoanhThu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(cboDoanhThu, 0, 696, Short.MAX_VALUE)))
+                .addComponent(jpnTongDoanhThu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(cboDoanhThu, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(jpnTongDoanhThu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -113,10 +69,6 @@ public class BieuDoTongDoanhThu extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void cboDoanhThuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboDoanhThuActionPerformed
-        displayPieChart();
-    }//GEN-LAST:event_cboDoanhThuActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -158,8 +110,6 @@ public class BieuDoTongDoanhThu extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cboDoanhThu;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jpnTongDoanhThu;
     // End of variables declaration//GEN-END:variables

@@ -3,11 +3,16 @@ package com.quanlyquananvat.GiaoDienQuanLy;
 import com.quanlyquananvat.Object.GiaoDichObject;
 import com.quanlyquananvat.ThuVienTienIch.Auth;
 import com.quanlyquananvat.ThuVienTienIch.MsgBox;
+import com.quanlyquananvat.ThuVienTienIch.NumberFormatter;
 import com.quanlyquananvat.dao.HoaDonChiTietDAO;
 import com.quanlyquananvat.dao.HoaDonDAO;
 import com.quanlyquananvat.dao.InHoaDonDAO;
+import java.awt.Graphics2D;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PageFormat;
+import java.awt.print.Paper;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,7 +21,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JFileChooser;
-import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
@@ -25,6 +29,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import javax.swing.JOptionPane;
 
 public class ChiTietHoaDon extends javax.swing.JDialog {
 
@@ -65,7 +70,7 @@ public class ChiTietHoaDon extends javax.swing.JDialog {
                     objects[4],
                     objects[5],
                     objects[6],});
-                tongTien += Double.parseDouble(objects[6].toString());
+                tongTien = Double.parseDouble(objects[6].toString());
                 phiGiaoHang = Double.parseDouble(objects[2].toString());
             }
         } catch (Exception e) {
@@ -278,7 +283,7 @@ public class ChiTietHoaDon extends javax.swing.JDialog {
             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 467, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblHD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -287,14 +292,14 @@ public class ChiTietHoaDon extends javax.swing.JDialog {
                         .addComponent(lblThoiGian, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 433, Short.MAX_VALUE)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(431, 431, 431))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 676, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(399, 399, 399)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,7 +313,7 @@ public class ChiTietHoaDon extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel7)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(5, 5, 5)
                 .addComponent(lblKhachHang)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblThoiGian)
@@ -318,8 +323,8 @@ public class ChiTietHoaDon extends javax.swing.JDialog {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE))
                 .addGap(10, 10, 10))
         );
 
@@ -340,14 +345,14 @@ public class ChiTietHoaDon extends javax.swing.JDialog {
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt)) {
             JPopupMenu pop = new JPopupMenu();
-            JMenuItem item = new JMenuItem("Xuất hóa đơn");
+//            JMenuItem item = new JMenuItem("Xuất hóa đơn");
             JMenuItem itom = new JMenuItem("In hóa đơn");
-            item.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    printAndSaveInvoice();
-                }
-            });
+//            item.addActionListener(new ActionListener() {
+//                @Override
+//                public void actionPerformed(ActionEvent e) {
+//                    printAndSaveInvoice();
+//                }
+//            });
             itom.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -365,11 +370,51 @@ public class ChiTietHoaDon extends javax.swing.JDialog {
                     inHoaDon();
                 }
             });
-            pop.add(item);
+//            pop.add(item);
             pop.add(itom);
             pop.show(tblHoaDon, evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_tblHoaDonMouseClicked
+//    public void inHoaDon() {
+//        tatBillOrder.setText("");
+//        DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
+//
+//        Date date = new Date();
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss -> dd/MM/yyyy");
+//
+//        // Sử dụng StringBuilder để xây dựng chuỗi hóa đơn
+//        StringBuilder billContent = new StringBuilder();
+//        billContent.append("                                  Quán ăn vặt ninh kiểu\n");
+//        billContent.append("              Đường Hai Bà Trưng, Quận Ninh Kiều, TP Cần Thơ.\n");
+//        billContent.append("                                      +84901672362\n");
+//        billContent.append("-----------------------------------------------------------------------------------\n");
+//        billContent.append(String.format("%-25s%-8s%-20s%-10s\n", "Tên Sản Phẩm", "SL", "Giá", "Thành Tiền"));
+//        billContent.append("-----------------------------------------------------------------------------------\n");
+//
+//        // Duyệt qua tất cả các sản phẩm trong vector và thêm thông tin vào StringBuilder
+//        for (LayTenVaSoLuong tenSanPham : vector) {
+//            billContent.append(String.format("%-25s%-8s%-20s%-10s\n", tenSanPham.getTenSanPham(), tenSanPham.soLuong, tenSanPham.giaSp, NumberFormatter.format(tenSanPham.getSoLuong() * tenSanPham.getGiaSp())));
+//        }
+//
+//        // Lấy thông tin từ hàng được chọn
+//        int row = tblHoaDon.getSelectedRow();
+//        String phiVanChuyen = model.getValueAt(row, 3).toString();
+//        double giaoHangNhanh = GiaoDichObject.getGiaoHangNhanh();
+//
+//        // Thêm thông tin phí và tổng tiền vào StringBuilder
+//        billContent.append("-----------------------------------------------------------------------------------\n");
+//        billContent.append(String.format("%-30s%-20s\n", "Phí địa chỉ vận chuyển:", phiVanChuyen));
+//        billContent.append(String.format("%-30s%-20s\n", "Phí giao nhanh:", giaoHangNhanh));
+//        billContent.append(String.format("%-30s%-20s\n", "Tổng Tiền:", tongTien));
+//        billContent.append(String.format("%-30s%-20s\n", "Thời gian:", dateFormat.format(date)));
+//        billContent.append("-----------------------------------------------------------------------------------\n");
+//
+//        // Sử dụng StringBuilder để hiển thị nội dung chuỗi vào JTextArea
+//        tatBillOrder.append(billContent.toString());
+//
+//        // Gọi phương thức in hóa đơn
+//        printInvoice();
+//    }
 
     public void inHoaDon() {
         tatBillOrder.setText("");
@@ -378,13 +423,14 @@ public class ChiTietHoaDon extends javax.swing.JDialog {
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss -> dd/MM/yyyy");
         // Duyệt qua tất cả các sản phẩm trong vector và in thông tin hóa đơn cho mỗi sản phẩm
-        tatBillOrder.append("                                     Quán ăn vặt ninh kiểu\n");
-        tatBillOrder.append("                Đường Hai Bà Trưng, Quận Ninh Kiều, TP Cần Thơ.\n");
-        tatBillOrder.append("                                         +84901672362\n");
-        tatBillOrder.append("-----------------------------------------------------------------------------------------------------\n");
+        tatBillOrder.append("                                  Quán ăn vặt ninh kiểu\n");
+        tatBillOrder.append("              Đường Hai Bà Trưng, Quận Ninh Kiều, TP Cần Thơ.\n");
+        tatBillOrder.append("                                      +84901672362\n");
+        tatBillOrder.append("-----------------------------------------------------------------------------------\n");
+        tatBillOrder.append("Tên Sản Phẩm	         SL	   Giá	  Tổng tiền\n"
+                + "-----------------------------------------------------------------------------------\n");
         for (LayTenVaSoLuong tenSanPham : vector) {
-            tatBillOrder.append("Tên Sản Phẩm: " + tenSanPham.getTenSanPham()
-                    + "        Số lượng: " + tenSanPham.getSoLuong() + "        Giá sản phẩm: " + tenSanPham.getGiaSp() + "\n");
+            tatBillOrder.append("" + tenSanPham.getTenSanPham() + "	         " + tenSanPham.soLuong + "	   " + tenSanPham.giaSp + "                  " + (NumberFormatter.format(tenSanPham.getSoLuong() * tenSanPham.getGiaSp())) + "\n");
         }
 
         // Lấy thông tin từ hàng được chọn (thông tin giống nhau cho tất cả sản phẩm trong vector)
@@ -393,11 +439,12 @@ public class ChiTietHoaDon extends javax.swing.JDialog {
         double giaoHangNhanh = 0;
         giaoHangNhanh = GiaoDichObject.getGiaoHangNhanh();
         // In thông tin chung cho tất cả sản phẩm trong vector
-        tatBillOrder.append("Phí Vận Chuyển: " + phiVanChuyen + "\n");
+        tatBillOrder.append("-----------------------------------------------------------------------------------\n");
+        tatBillOrder.append("Phí địa chỉ vận chuyển: " + phiVanChuyen + "\n");
         tatBillOrder.append("Phí giao nhanh: " + giaoHangNhanh + "\n");
-        tatBillOrder.append("Tổng Tiền: " + (tongTien + phiGiaoHang + giaoHangNhanh) + "\n");
+        tatBillOrder.append("Tổng Tiền: " + (tongTien) + "\n");
         tatBillOrder.append("Thời gian: " + dateFormat.format(date) + "\n");
-        tatBillOrder.append("-----------------------------------------------------------------------------------------------------\n");
+        tatBillOrder.append("-----------------------------------------------------------------------------------\n");
         printInvoice();
     }
 
@@ -438,6 +485,125 @@ public class ChiTietHoaDon extends javax.swing.JDialog {
             e.printStackTrace();
         }
     }
+//    private Font smallFont; // Đặt biến Font ở ngoài
+//    private void printInvoice() {
+//        PrinterJob printerJob = PrinterJob.getPrinterJob();
+//        printerJob.setPrintable(
+//                (graphics, pageFormat, pageIndex) -> {
+//                    if (pageIndex > 0) {
+//                        return Printable.NO_SUCH_PAGE;
+//                    }
+//
+//                    // Kích thước trang in
+//                    int pageWidth = (int) pageFormat.getImageableWidth();
+//                    int pageHeight = (int) pageFormat.getImageableHeight();
+//
+//                    // Kiểm tra nếu kích thước trang in lớn hơn giấy 58mm, điều chỉnh tỷ lệ
+//                    double scale = 1.0;
+//                    if (pageWidth > 58) {
+//                        scale = 58.0 / pageWidth;
+//                    }
+//
+//                    // Tạo ma trận biến đổi để thay đổi tỷ lệ
+//                    Graphics2D g2d = (Graphics2D) graphics;
+//                    g2d.scale(scale, scale);
+//
+//                    // Margin và vị trí dòng hiện tại để in
+//                    int marginLeft = (int) (pageFormat.getImageableX() + 10 * scale);
+//                    int marginTop = (int) (pageFormat.getImageableY() + 10 * scale);
+//
+//                    // Dòng hiện tại để in
+//                    int currentLine = 0;
+//
+//                    // Vòng lặp để in từng dòng
+//                    for (String line : tatBillOrder.getText().split("\n")) {
+//                        graphics.drawString(line, marginLeft, marginTop + currentLine * graphics.getFontMetrics().getHeight());
+//                        currentLine++;
+//                    }
+//
+//                    return Printable.PAGE_EXISTS;
+//                }
+//        );
+//
+//        try {
+//            PageFormat pageFormat = printerJob.defaultPage();
+//            Paper paper = new Paper();
+//            // Đặt kích thước giấy thành 58mm
+//            paper.setSize(58 * 72.0 / 25.4, paper.getHeight());
+//            pageFormat.setPaper(paper);
+//
+//            boolean doPrint = printerJob.printDialog();
+//            if (doPrint) {
+//                printerJob.print();
+//            }
+//            System.out.println("Kích thước giấy: " + pageFormat.getImageableWidth() + " x " + pageFormat.getImageableHeight());
+//
+//        } catch (PrinterException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//private void printInvoice() {
+//    PrinterJob printerJob = PrinterJob.getPrinterJob();
+//
+//    printerJob.setPrintable((graphics, pageFormat, pageIndex) -> {
+//        if (pageIndex > 0) {
+//            return Printable.NO_SUCH_PAGE;
+//        }
+//
+//        // Kích thước trang in
+//        int pageWidth = (int) pageFormat.getImageableWidth();
+//        int pageHeight = (int) pageFormat.getImageableHeight();
+//
+//        // Kiểm tra nếu kích thước trang in lớn hơn giấy 48mm, điều chỉnh tỷ lệ
+//        double scale = 1.0;
+//        if (pageWidth > 48) {
+//            scale = 48.0 / pageWidth;
+//        }
+//
+//        // In thông tin debug
+//        System.out.println("Chiều Rộng Có Thể In (trước khi thu nhỏ): " + pageFormat.getImageableWidth());
+//        System.out.println("Chiều Dài Có Thể In (trước khi thu nhỏ): " + pageFormat.getImageableHeight());
+//        System.out.println("Tỷ Lệ: " + scale);
+//
+//        // Tạo ma trận biến đổi để thay đổi tỷ lệ
+//        Graphics2D g2d = (Graphics2D) graphics;
+//        g2d.scale(scale, scale);
+//
+//        // Margin và vị trí dòng hiện tại để in
+//        int marginLeft = (int) (pageFormat.getImageableX() + 10 * scale);
+//        int marginTop = (int) (pageFormat.getImageableY() + 10 * scale);
+//
+//        // Dòng hiện tại để in
+//        int currentLine = 0;
+//
+//        // Vòng lặp để in từng dòng
+//        for (String line : tatBillOrder.getText().split("\n")) {
+//            graphics.drawString(line, marginLeft, marginTop + currentLine * graphics.getFontMetrics().getHeight());
+//            currentLine++;
+//        }
+//
+//        return Printable.PAGE_EXISTS;
+//    });
+//
+//    try {
+//        PageFormat pageFormat = printerJob.defaultPage();
+//        Paper paper = new Paper();
+//
+//        // Sử dụng kích thước giấy từ PageFormat
+//        paper.setSize(pageFormat.getImageableWidth(), pageFormat.getImageableHeight());
+//        pageFormat.setPaper(paper);
+//
+//        boolean doPrint = printerJob.printDialog();
+//        if (doPrint) {
+//            printerJob.print();
+//        }
+//        System.out.println("Kích thước giấy: " + pageFormat.getImageableWidth() + " x " + pageFormat.getImageableHeight());
+//
+//    } catch (PrinterException e) {
+//        e.printStackTrace();
+//        JOptionPane.showMessageDialog(null, "Lỗi in: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+//    }
+//}
 
 
     private void tblHoaDonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMousePressed
@@ -458,16 +624,24 @@ public class ChiTietHoaDon extends javax.swing.JDialog {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ChiTietHoaDon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChiTietHoaDon.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ChiTietHoaDon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChiTietHoaDon.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ChiTietHoaDon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChiTietHoaDon.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ChiTietHoaDon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChiTietHoaDon.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

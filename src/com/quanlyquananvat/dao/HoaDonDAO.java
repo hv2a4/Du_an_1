@@ -20,6 +20,34 @@ public class HoaDonDAO extends DAO<HoaDonObject, Integer> {
     final String ten_MaKH = "select TenKH from KhachHang where MaKH = ?";
     final String Select_year_byHoaDon = "select distinct YEAR(NgayTao) as nam from HoaDon order by YEAR(NgayTao) desc";
 
+    // Tổng số lượng hóa đơn đã đặt thành công
+    public int getSoLuongHoaDon() {
+        final String hoaDonDztThanhCong = "SELECT COUNT(*) AS TongSoLuongHoaDon FROM HoaDon WHERE MaThanhToan IS NOT NULL;";
+        try {
+            ResultSet rs = JdbcHelper.query(hoaDonDztThanhCong);
+            if (rs.next()) {
+                return rs.getInt("TongSoLuongHoaDon");
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Thông báo lỗi để có thể theo dõi và sửa lỗi
+        }
+        return 0;
+    }
+    
+    // tổng doanh thu
+    public double getTongDoanhThu() {
+        String tongDoanhThu = "SELECT SUM(TongTien) AS TongDoanhThu FROM HoaDon WHERE MaThanhToan IS NOT NULL;";
+        try {
+            ResultSet rs = JdbcHelper.query(tongDoanhThu);
+            if (rs.next()) {
+                return rs.getDouble("TongDoanhThu");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     @Override
     public void insert(HoaDonObject entiTy) {
         JdbcHelper.update(Insert_sql, entiTy.getMaKH(), entiTy.getMaNV(), entiTy.getNgayTao(),
@@ -39,7 +67,7 @@ public class HoaDonDAO extends DAO<HoaDonObject, Integer> {
 
     @Override
     public List<HoaDonObject> selectAll() {
-        return (List<HoaDonObject>) selectBySQL(Select_all_sql);
+        return selectBySQL(Select_all_sql);
     }
 
     @Override

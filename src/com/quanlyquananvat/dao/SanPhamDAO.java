@@ -16,6 +16,20 @@ public class SanPhamDAO extends DAO<SanPhamObject, String> {
     final String Select_ById_sql = "SELECT * FROM sanpham WHERE MaSP=?";
     final String TenSanPham = "select * from SanPham where TenSP like N'%' + ? + '%'";
 
+    // tổng số lượng tồn kho
+    public int getTongSanPhamTonKho() {
+        String tongSpTK = "select SUM(SoLuong) as tongSoLuongSPTonKho from SanPham";
+        try {
+            ResultSet rs = JdbcHelper.query(tongSpTK);
+            if (rs.next()) {
+                return rs.getInt("tongSoLuongSPTonKho");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     @Override
     public void insert(SanPhamObject entiTy) {
         JdbcHelper.update(Insert_sql, entiTy.getMaSP(), entiTy.getTenSP(), entiTy.getSoLuong(), entiTy.getGiaSP(),
