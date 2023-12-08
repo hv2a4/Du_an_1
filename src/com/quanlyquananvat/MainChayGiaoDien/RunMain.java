@@ -601,7 +601,7 @@ public class RunMain extends javax.swing.JFrame {
         updateUserInfo();
     }
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        String path = "src\\HTML\\gioiThieu.html";
+        String path = "GioiThieu\\gioiThieu.html";
         File htmlFile = new File(path);
 
         try {

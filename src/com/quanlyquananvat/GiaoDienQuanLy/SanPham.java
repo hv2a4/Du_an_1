@@ -6,6 +6,7 @@ import com.quanlyquananvat.Object.SanPhamObject;
 import com.quanlyquananvat.ThuVienTienIch.Auth;
 import com.quanlyquananvat.ThuVienTienIch.MsgBox;
 import com.quanlyquananvat.ThuVienTienIch.NumberFormatter;
+import com.quanlyquananvat.ThuVienTienIch.XDate;
 import com.quanlyquananvat.ThuVienTienIch.Ximge;
 import com.quanlyquananvat.dao.LoaiSanPhamDAO;
 import com.quanlyquananvat.dao.SanPhamDAO;
@@ -126,6 +127,7 @@ public class SanPham extends javax.swing.JPanel {
     public void fillComBoBox() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboLoaiSanPham.getModel();
         model.removeAllElements();
+        model.addElement("Chọn loại sản phẩm");
         try {
             List<LoaiSanPhamObject> list = lspdao.selectAll();
             for (LoaiSanPhamObject s : list) {
@@ -151,21 +153,46 @@ public class SanPham extends javax.swing.JPanel {
     public SanPhamObject getForm() {
         LoaiSanPhamObject lsp = (LoaiSanPhamObject) cboLoaiSanPham.getSelectedItem();
         SanPhamObject sp = new SanPhamObject();
+
         sp.setMaSP(txtMaSanPhaam.getText());
         sp.setTenSP(txtTenSanPham.getText());
+
         try {
-            int soLuong = Integer.parseInt(txtSoLuong.getText());
-            sp.setSoLuong(soLuong);
+            double soLuong = Double.parseDouble(txtSoLuong.getText());
+            if (soLuong < 0) {
+                MsgBox.error(this, "Số lượng không lớn hoặc nhỏ hơn bằng 0!");
+                return null;
+            }
+            sp.setSoLuong((int) soLuong); // Chuyển đổi thành số nguyên
         } catch (NumberFormatException e) {
-            // Xử lý lỗi khi người dùng nhập không phải là số
             e.printStackTrace();
-            MsgBox.error(this, "Vui lòng nhập số lượng là một số nguyên.");
+            MsgBox.error(this, "Vui lòng nhập số lượng là một số.");
+            return null;
         }
-        sp.setGiaSP(Double.parseDouble(txtGia.getText()));
+
+        try {
+            double gia = Double.parseDouble(txtGia.getText());
+            if (gia < 0) {
+                MsgBox.error(this, "Giá không lớn hoặc nhỏ hơn bằng 0!");
+                return null;
+            }
+            sp.setGiaSP(gia);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            MsgBox.error(this, "Vui lòng nhập giá là một số thực.");
+            return null;
+        }
+
+        if (dcNgayNhap.getDate() == null || dcNgayNhap.getDate().after(XDate.now())) {
+            MsgBox.error(this, "Ngày nhập không hợp lệ!");
+            return null;
+        }
+
         sp.setNgayNhap(dcNgayNhap.getDate());
         sp.setMoTa(txtMoTa.getText());
         sp.setMaLoaiSanPham(lsp.getMaLoaiSanPham());
         sp.setHinhAnh(lblAnhDaiDien.getToolTipText());
+
         return sp;
     }
 
@@ -190,17 +217,33 @@ public class SanPham extends javax.swing.JPanel {
         }
     }
 
+    // Hàm tìm kiếm đối tượng LoaiSanPhamObject trong ComboBoxModel dựa trên mã loại sản phẩm
     private LoaiSanPhamObject findLoaiSanPhamById(String maLoaiSanPham) {
+        // Lấy ComboBoxModel từ ComboBox
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboLoaiSanPham.getModel();
+
+        // Lấy số lượng phần tử trong ComboBoxModel
         int size = model.getSize();
 
+        // Duyệt qua tất cả các phần tử trong ComboBoxModel
         for (int i = 0; i < size; i++) {
-            LoaiSanPhamObject loaiSanPham = (LoaiSanPhamObject) model.getElementAt(i);
-            if (loaiSanPham.getMaLoaiSanPham().equals(maLoaiSanPham)) {
-                return loaiSanPham;
+            // Lấy phần tử tại vị trí i
+            Object item = model.getElementAt(i);
+
+            // Kiểm tra nếu phần tử là đối tượng LoaiSanPhamObject
+            if (item instanceof LoaiSanPhamObject) {
+                // Ép kiểu phần tử về LoaiSanPhamObject
+                LoaiSanPhamObject loaiSanPham = (LoaiSanPhamObject) item;
+
+                // Kiểm tra xem mã loại sản phẩm của đối tượng có trùng với mã cần tìm hay không
+                if (loaiSanPham.getMaLoaiSanPham().equals(maLoaiSanPham)) {
+                    // Nếu trùng, trả về đối tượng LoaiSanPhamObject
+                    return loaiSanPham;
+                }
             }
         }
 
+        // Trả về null nếu không tìm thấy đối tượng LoaiSanPhamObject với mã loại sản phẩm cần tìm
         return null;
     }
 
@@ -286,6 +329,15 @@ public class SanPham extends javax.swing.JPanel {
             if (sp.getTenSP().isEmpty() || sp.getSoLuong() < 0 || sp.getGiaSP() < 0 || sp.getNgayNhap() == null) {
                 return "Vui lòng nhập đầy đủ thông tin và đảm bảo số lượng và giá là không âm.";
             }
+            if (sp.getNgayNhap().after(XDate.now())) {
+                return "(Ngày,Tháng,Năm) nhập không được lớn hơn thời gian hiện tại ";
+            }
+            if (sp.getSoLuong() < 0) {
+                return "Số lượng không lớn hoặc nhỏ hơn bằng 0";
+            }
+            if (sp.getGiaSP() < 0) {
+                return "Giá không không lớn hoặc nhỏ hơn bằng 0";
+            }
             return null;
         } catch (NumberFormatException e) {
             return "Giá sản phẩm không hợp lệ. Vui lòng nhập một giá trị số hợp lệ.";
@@ -360,7 +412,7 @@ public class SanPham extends javax.swing.JPanel {
         String soLuong = txtSoLuong.getText();
         String gia = txtGia.getText();
         Date ngayNhap = dcNgayNhap.getDate();
-
+        int loaiSP = cboLoaiSanPham.getSelectedIndex();
         if (maSanPham.isEmpty() || tenSanPham.isEmpty() || soLuong.isEmpty() || gia.isEmpty() || ngayNhap == null) {
             return "Vui lòng nhập đầy đủ thông tin.";
         }
@@ -371,7 +423,12 @@ public class SanPham extends javax.swing.JPanel {
         if (isMaSanPhamInvalid(maSanPham)) {
             return "Mã sản phẩm không đúng định dạng!";
         }
-
+        if (ngayNhap.after(XDate.now())) {
+            return "(Ngày,Tháng,Năm) nhập không được lớn hơn thời gian hiện tại ";
+        }
+        if (loaiSP == 0) {
+            return "Vui lòng chọn loại sản phẩm trước khi sử dụng dụng chức năng!";
+        }
         try {
             // Kiểm tra xem soLuong có thể chuyển đổi thành int hay không
             int soLuongInt = Integer.parseInt(soLuong);

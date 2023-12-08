@@ -1019,6 +1019,11 @@ public class GiaoDich extends javax.swing.JPanel {
     }//GEN-LAST:event_jMenuItem3MouseClicked
 
     private void tblHoaDonChiTietMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonChiTietMouseClicked
+        row = tblHoaDonChiTiet.getSelectedRow();
+        if (row == -1) {
+            MsgBox.warning(this, "Vui lòng chọn dòng dữ liệu để sử dụng chức năng");
+            return;
+        }
         if (SwingUtilities.isRightMouseButton(evt)) {
             JPopupMenu popupMenu = new JPopupMenu();
             JMenuItem menuItem = new JMenuItem("Xen thông tin chi tiết");
@@ -1108,6 +1113,10 @@ public class GiaoDich extends javax.swing.JPanel {
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
         row = tblHoaDon.getSelectedRow();
+        if (row == -1) {
+            MsgBox.warning(this, "Vui lòng chọn 1 dòng dữ liệu để in đơn!");
+            return;
+        }
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
     private void txtTongTienKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTongTienKeyReleased
@@ -1171,6 +1180,10 @@ public class GiaoDich extends javax.swing.JPanel {
     }
 
     public void thanhToan() {
+        if (tblSanPham.getSelectedRow() == -1) {
+            MsgBox.warning(this, "Vui lòng chọn ít nhất một sản phẩm trước khi thanh toán!");
+            return;
+        }
         String maHD1 = txtMaHoaDon.getText();
         String maNV = txtMaNhanVien1.getText();
         String maKhachHang = txtKhachHang.getText();
@@ -1204,7 +1217,7 @@ public class GiaoDich extends javax.swing.JPanel {
                 return;
             }
             // Nhập số lượng từ người dùng
-            String soLuongStr = JOptionPane.showInputDialog(this, "Nhập số lượng!");
+            String soLuongStr = JOptionPane.showInputDialog(this, "Nhập số lượng sản phẩm phẩm bạn muốn mua!");
 
             // Kiểm tra xem người dùng đã nhập hay chưa
             if (soLuongStr == null || soLuongStr.trim().isEmpty()) {
