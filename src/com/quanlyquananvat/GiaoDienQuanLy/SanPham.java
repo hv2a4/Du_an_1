@@ -152,10 +152,6 @@ public class SanPham extends javax.swing.JPanel {
 
     public SanPhamObject getForm() {
         LoaiSanPhamObject lsp = (LoaiSanPhamObject) cboLoaiSanPham.getSelectedItem();
-        SanPhamObject sp = new SanPhamObject();
-
-        sp.setMaSP(txtMaSanPhaam.getText());
-        sp.setTenSP(txtTenSanPham.getText());
 
         try {
             double soLuong = Double.parseDouble(txtSoLuong.getText());
@@ -163,37 +159,33 @@ public class SanPham extends javax.swing.JPanel {
                 MsgBox.error(this, "Số lượng không lớn hoặc nhỏ hơn bằng 0!");
                 return null;
             }
-            sp.setSoLuong((int) soLuong); // Chuyển đổi thành số nguyên
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            MsgBox.error(this, "Vui lòng nhập số lượng là một số.");
-            return null;
-        }
 
-        try {
             double gia = Double.parseDouble(txtGia.getText());
             if (gia < 0) {
                 MsgBox.error(this, "Giá không lớn hoặc nhỏ hơn bằng 0!");
                 return null;
             }
+
+            if (dcNgayNhap.getDate() == null || dcNgayNhap.getDate().after(XDate.now())) {
+                return null;
+            }
+
+            SanPhamObject sp = new SanPhamObject();
+            sp.setMaSP(txtMaSanPhaam.getText());
+            sp.setTenSP(txtTenSanPham.getText());
+            sp.setSoLuong((int) soLuong);
             sp.setGiaSP(gia);
+            sp.setNgayNhap(dcNgayNhap.getDate());
+            sp.setMoTa(txtMoTa.getText());
+            sp.setMaLoaiSanPham(lsp.getMaLoaiSanPham());
+            sp.setHinhAnh(lblAnhDaiDien.getToolTipText());
+
+            return sp;
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            MsgBox.error(this, "Vui lòng nhập giá là một số thực.");
+            MsgBox.error(this, "Vui lòng nhập số lượng và giá là các số hợp lệ.");
             return null;
         }
-
-        if (dcNgayNhap.getDate() == null || dcNgayNhap.getDate().after(XDate.now())) {
-            MsgBox.error(this, "Ngày nhập không hợp lệ!");
-            return null;
-        }
-
-        sp.setNgayNhap(dcNgayNhap.getDate());
-        sp.setMoTa(txtMoTa.getText());
-        sp.setMaLoaiSanPham(lsp.getMaLoaiSanPham());
-        sp.setHinhAnh(lblAnhDaiDien.getToolTipText());
-
-        return sp;
     }
 
     public void setForm(SanPhamObject spo) {
@@ -300,7 +292,10 @@ public class SanPham extends javax.swing.JPanel {
         }
 
         SanPhamObject sp = getForm();
-
+        SanPhamObject sp1 = new SanPhamObject();
+        if (sp1 == null) {
+            return;
+        }
         // Kiểm tra dữ liệu đầu vào
         String validationError = validateData(sp);
         if (validationError != null) {
@@ -326,7 +321,8 @@ public class SanPham extends javax.swing.JPanel {
 
     private String validateData(SanPhamObject sp) {
         try {
-            if (sp.getTenSP().isEmpty() || sp.getSoLuong() < 0 || sp.getGiaSP() < 0 || sp.getNgayNhap() == null) {
+
+            if (sp == null || sp.getTenSP().isEmpty() || sp.getSoLuong() < 0 || sp.getGiaSP() < 0 || sp.getNgayNhap() == null) {
                 return "Vui lòng nhập đầy đủ thông tin và đảm bảo số lượng và giá là không âm.";
             }
             if (sp.getNgayNhap().after(XDate.now())) {

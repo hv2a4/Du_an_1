@@ -1180,7 +1180,7 @@ public class GiaoDich extends javax.swing.JPanel {
     }
 
     public void thanhToan() {
-        if (tblSanPham.getSelectedRow() == -1) {
+        if (tblSanPham.getSelectedRow() == 0) {
             MsgBox.warning(this, "Vui lòng chọn ít nhất một sản phẩm trước khi thanh toán!");
             return;
         }
